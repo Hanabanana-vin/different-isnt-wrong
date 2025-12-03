@@ -304,6 +304,15 @@ button#btn-restart:hover {
   margin-bottom: 12px;
 }
 
+.q-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+
 /* Options */
 .options-block {
   margin-top: 32px;
