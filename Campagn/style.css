@@ -789,7 +789,7 @@ button#btn-restart:hover {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  height: 100%;
+  height: 150px;
   padding-bottom: 20px;
   /* Space for labels */
 }
