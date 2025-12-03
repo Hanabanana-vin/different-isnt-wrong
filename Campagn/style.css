@@ -446,6 +446,75 @@ button#btn-restart:hover {
   }
 }
 
+/* Pre-measurement Instruction Graphic */
+.instruction-graphic {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 32px auto;
+}
+
+.camera-cue {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--text-main);
+  border-radius: 50%;
+  background: #000;
+}
+
+.finger-cue {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(239, 68, 68, 0.6);
+  /* Red tint like finger covering light */
+  border-radius: 50%;
+  z-index: 2;
+  animation: fingerPulse 1.5s infinite alternate;
+}
+
+.arrow-cue {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  animation: bounceArrow 1s infinite;
+}
+
+@keyframes fingerPulse {
+  from {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.7;
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceArrow {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
 /* Graph */
 #graph {
   margin-top: 32px;

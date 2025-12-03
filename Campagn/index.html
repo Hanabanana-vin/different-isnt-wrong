@@ -101,8 +101,9 @@
         </div>
       </div>
       <div class="step-label">Question 4 of 5</div>
-      <h2>How do you view Spain’s ‘Okupa’ movement—illegally occupying empty homes?</h2>
-      <img src="q4.jpeg" alt="Question 4 Image" class="q-image">
+      <h2>How do you view Spain’s ‘Okupa’ movement ?</h2>
+      <p>Okupa :People, illegally occupying empty homes.</p>
+      <img src="q4_rr.png" alt="Question 4 Image" class="q-image">
       <p>Please answer honestly, just as you normally think.</p>
       <div class="options-block">
         <div class="opt" data-key="identity">Justified</div>
@@ -133,6 +134,27 @@
     </div>
 
 
+
+    <!-- PRE-MEASURE INSTRUCTION -->
+    <div class="card" id="screen-pre-measure" style="display:none;">
+      <div class="step-label">Preparation</div>
+      <h2 class="center">Ready to measure?</h2>
+      <p class="center">For an accurate stress index, we will measure your heart rate.</p>
+
+      <div class="instruction-graphic">
+        <div class="finger-cue"></div>
+        <div class="camera-cue"></div>
+        <div class="arrow-cue">↓</div>
+      </div>
+
+      <p class="center" style="margin-top:20px;">
+        Please cover the <strong>front camera</strong> completely with your fingertip.
+      </p>
+
+      <div class="btn-row">
+        <button class="primary" id="btn-start-measure">Start Measurement</button>
+      </div>
+    </div>
 
     <!-- STEP 2: MEASURE -->
     <div class="card" id="screen-measure" style="display:none;">
@@ -307,10 +329,12 @@
     const q3 = document.getElementById('q3');
     const q4 = document.getElementById('q4');
     const q5 = document.getElementById('q5');
+    const pmScreen = document.getElementById('screen-pre-measure');
     const mScreen = document.getElementById('screen-measure');
     const rScreen = document.getElementById('screen-result');
 
     const btnStart = document.getElementById('btn-start');
+    const btnStartMeasure = document.getElementById('btn-start-measure');
     const btnRestart = document.getElementById('btn-restart');
 
     const backQ1 = document.getElementById('back-q1');
@@ -390,12 +414,19 @@
       q3.style.display = 'none';
       q4.style.display = 'none';
       q5.style.display = 'none';
+      pmScreen.style.display = 'none';
       mScreen.style.display = 'none';
       rScreen.style.display = 'none';
       screen.style.display = 'block';
     }
 
     btnStart.onclick = () => show(q1);
+
+    // 측정 시작 버튼
+    btnStartMeasure.onclick = () => {
+      show(mScreen);
+      startCamera();
+    };
 
     // 뒤로가기
     backQ1.onclick = () => show(intro);
@@ -446,8 +477,7 @@
         answers.stress = opt.textContent.trim();
         q5.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
         opt.classList.add('selected');
-        show(mScreen);
-        startCamera();
+        show(pmScreen);
       });
     });
 
