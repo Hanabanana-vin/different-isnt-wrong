@@ -448,14 +448,18 @@ button#btn-restart:hover {
 
 /* Pre-measurement Instruction Graphic */
 .instruction-graphic {
-  position: absolute;
-  top: -80px;
-  /* Move way up outside the card */
+  position: fixed;
+  /* Fixed to viewport */
+  top: 40px;
+  /* Always at the top */
   left: 50%;
   transform: translateX(-50%);
   width: 120px;
   height: 120px;
-  z-index: 20;
+  z-index: 9999;
+  /* Highest z-index */
+  pointer-events: none;
+  /* Let clicks pass through if needed */
 }
 
 .finger-cue {
