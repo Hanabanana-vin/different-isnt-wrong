@@ -712,7 +712,7 @@ button#btn-restart:hover {
 .cluster-map-wrap {
   width: 100%;
   height: 200px;
-  background: #111827 url('/Users/srnam/.gemini/antigravity/brain/16e28281-afef-4626-a8bd-62f037c904b8/world_map_dark_1764144290880.png') no-repeat center center;
+  background: #111827 url('world_map.jpg') no-repeat center center;
   background-size: cover;
   border-radius: 16px;
   margin-bottom: 16px;
@@ -1024,10 +1024,18 @@ button#btn-restart:hover {
   opacity: 1;
   transform: translateY(0);
   animation: floatImage 6s ease-in-out infinite;
-  animation-delay: 2.2s; /* Wait for fade-in */
+  animation-delay: 2.2s;
+  /* Wait for fade-in */
 }
 
 @keyframes floatImage {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
