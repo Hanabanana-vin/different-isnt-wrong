@@ -1006,3 +1006,28 @@ button#btn-restart:hover {
   color: var(--text-main);
   font-size: 18px;
 }
+
+/* Image Animation */
+.fade-in-image {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  width: 100%;
+  max-width: 280px;
+  margin: 32px auto 0;
+  display: block;
+  /* border-radius: 16px; */
+  /* box-shadow: 0 10px 30px rgba(0,0,0,0.08); */
+}
+
+.result-slide.active .fade-in-image {
+  opacity: 1;
+  transform: translateY(0);
+  animation: floatImage 6s ease-in-out infinite;
+  animation-delay: 2.2s; /* Wait for fade-in */
+}
+
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
