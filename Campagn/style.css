@@ -451,30 +451,21 @@ button#btn-restart:hover {
   position: relative;
   width: 120px;
   height: 120px;
-  margin: 32px auto;
+  margin: 10px auto 40px;
+  /* Added top margin to push it down a bit, but arrow points up */
 }
 
-.camera-cue {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  border: 4px solid var(--text-main);
-  border-radius: 50%;
-  background: #000;
-}
+/* Camera cue removed */
 
 .finger-cue {
   position: absolute;
-  top: 50%;
+  top: 0;
+  /* Align to top */
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: rgba(239, 68, 68, 0.6);
-  /* Red tint like finger covering light */
   border-radius: 50%;
   z-index: 2;
   animation: fingerPulse 1.5s infinite alternate;
@@ -482,13 +473,15 @@ button#btn-restart:hover {
 
 .arrow-cue {
   position: absolute;
-  top: -30px;
+  top: -60px;
+  /* Move arrow higher up */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 24px;
+  font-size: 40px;
+  /* Larger arrow */
   font-weight: 800;
   color: var(--primary);
-  animation: bounceArrow 1s infinite;
+  animation: bounceArrowUp 1s infinite;
 }
 
 @keyframes fingerPulse {
@@ -503,7 +496,7 @@ button#btn-restart:hover {
   }
 }
 
-@keyframes bounceArrow {
+@keyframes bounceArrowUp {
 
   0%,
   100% {
@@ -511,8 +504,10 @@ button#btn-restart:hover {
   }
 
   50% {
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateX(-50%) translateY(-15px);
   }
+
+  /* Bounce Up */
 }
 
 /* Graph */
