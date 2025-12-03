@@ -812,7 +812,26 @@
       currentSlide = index;
     }
 
-    // ... (nextSlide, event listeners remain same) ...
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    // Tap to advance
+    document.getElementById('result-carousel').addEventListener('click', (e) => {
+      // Don't advance if clicking a button
+      if (e.target.tagName === 'BUTTON') return;
+      nextSlide();
+    });
+
+    // Also allow clicking the hint specifically
+    document.querySelectorAll('.tap-hint').forEach(hint => {
+      hint.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent double firing
+        nextSlide();
+      });
+    });
 
     // Animation Helpers
     function animateCount(obj, end, duration) {
