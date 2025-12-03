@@ -773,6 +773,18 @@ button#btn-restart:hover {
   display: block;
 }
 
+/* 3) Ending Canvas */
+#ending-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
 /* 3) Neighborhood Cards */
 .neighborhood-wrap {
   display: flex;
