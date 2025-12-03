@@ -450,7 +450,7 @@ button#btn-restart:hover {
 .instruction-graphic {
   position: fixed;
   /* Fixed to viewport */
-  top: 40px;
+  top: 0;
   /* Always at the top */
   left: 50%;
   transform: translateX(-50%);
