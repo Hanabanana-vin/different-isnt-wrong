@@ -196,7 +196,7 @@
         <!-- PAGE 1: Visitor’s Heartbeat (Formerly Slide 3) -->
         <div class="result-slide active" id="slide-1">
           <div class="slide-content center-text">
-            <p class="fade-in-text">Meanwhile,<br>your heart kept going.</p>
+            <p class="fade-in-text">Here is the rhythm your heart made.</p>
 
             <!-- Heart Rate Graphic -->
             <div class="ecg-wrap fade-in-text delay-1">
@@ -224,8 +224,8 @@
         <!-- PAGE 3: Zoom Into the Visitor (Formerly Slide 2) -->
         <div class="result-slide" id="slide-3">
           <div class="slide-content center-text">
-            <h2 class="fade-in-text">Just as everyone lives<br>in different environments<br>and rhythms,<br>different is
-              not wrong.</h2>
+            <h2 class="fade-in-text">different is not wrong.</h2>
+            <p>Just as everyone lives<br>in different environments<br>and rhythms,</p>
           </div>
           <div class="tap-hint">Tap to turn the page →</div>
         </div>
@@ -243,13 +243,13 @@
                   <div class="gauge-marker" id="gauge-marker"></div>
                 </div>
                 <div class="gauge-labels">
-                  <span>0%</span>
-                  <span id="gauge-text">50th Percentile</span>
-                  <span>100%</span>
+                  <span>Slower</span>
+                  <span id="gauge-text">Average</span>
+                  <span>Faster</span>
                 </div>
               </div>
               <div class="distribution-insight" id="gauge-insight">
-                You are in the 46th percentile.
+                Your heart rhythm is being compared to the crowd.
               </div>
             </div>
 
@@ -261,45 +261,51 @@
         <div class="result-slide" id="slide-5">
           <div class="slide-content scrollable">
 
-            <!-- A. Heart Rhythm Cluster Map -->
-            <div class="distribution-card">
-              <div class="distribution-title">Heart Rhythm Cluster Map</div>
-              <div class="cluster-map-wrap">
-                <canvas id="cluster-canvas" width="300" height="200"></canvas>
+            <!-- Chunk A: Neighborhood (People who moved like you today) -->
+            <div class="distribution-card" style="margin-top: 0;">
+              <div class="distribution-title">People who moved like you today</div>
+              <div class="neighborhood-wrap">
+                <div class="nb-card">
+                  <div class="nb-count" id="nb-count-2">--</div>
+                  <div class="nb-label">Almost the same beat</div>
+                </div>
+                <div class="nb-card">
+                  <div class="nb-count" id="nb-count-5">--</div>
+                  <div class="nb-label">Similar rhythm</div>
+                </div>
+                <div class="nb-card">
+                  <div class="nb-count" id="nb-count-unique">--</div>
+                  <div class="nb-label">Exactly your beat</div>
+                </div>
               </div>
               <div class="distribution-desc">
-                Your heart blends into this moving crowd.
+                Quite a few hearts today moved almost like yours.
               </div>
             </div>
 
-            <!-- B. Neighborhood Statistics -->
-            <div class="neighborhood-wrap">
-              <div class="nb-card">
-                <div class="nb-count" id="nb-count-2">--</div>
-                <div class="nb-label">People ±2 bpm</div>
-              </div>
-              <div class="nb-card">
-                <div class="nb-count" id="nb-count-5">--</div>
-                <div class="nb-label">People ±5 bpm</div>
-              </div>
-              <div class="nb-card">
-                <div class="nb-count" id="nb-count-unique">--</div>
-                <div class="nb-label">Exact Match</div>
-              </div>
-            </div>
-
-            <!-- C. Population Distribution -->
+            <!-- Chunk B: Histogram (Where today’s visitors gathered) -->
             <div class="distribution-card">
-              <div class="distribution-title">Population Distribution</div>
+              <div class="distribution-title">Where today’s visitors gathered</div>
               <div class="histogram-wrap" id="histogram-wrap">
                 <!-- Bars injected by JS -->
               </div>
               <div class="distribution-insight" id="hist-insight">
-                Many visitors gather around 70–90 bpm.
+                Most hearts today gathered around 70–90 bpm — yours is one of them.
               </div>
             </div>
 
-            <!-- Heart Twin -->
+            <!-- Chunk C: Cluster Map (You in the moving crowd) -->
+            <div class="distribution-card">
+              <div class="distribution-title">You in the moving crowd</div>
+              <div class="cluster-map-wrap">
+                <canvas id="cluster-canvas" width="300" height="200"></canvas>
+              </div>
+              <div class="distribution-desc">
+                Each dot is one visitor’s rhythm today. One glowing point is yours.
+              </div>
+            </div>
+
+            <!-- Chunk D: Heart Twin & Closing -->
             <div class="heart-twin-card">
               <div class="twin-icon">♥</div>
               <div class="twin-info">
@@ -307,11 +313,14 @@
                 <div class="twin-desc" id="twin-desc">Visitor #042 (81 bpm)</div>
               </div>
             </div>
+            <div class="distribution-desc" style="text-align: center; margin-top: 8px; margin-bottom: 24px;">
+              Somewhere in this room, one person’s rhythm came closest to yours.
+            </div>
 
             <!-- Closing -->
             <div class="closing-text">
               <p>Different opinions. Different fears. Different sides.<br>
-                But still, a heart moving inside the same human range.<br>
+                Yet every heart here moved inside the same human range.<br><br>
                 <strong>Different is not wrong.</strong>
               </p>
             </div>
@@ -1057,7 +1066,7 @@
 
         if (userBpm >= bins[i] && userBpm < bins[i] + 10) {
           bar.classList.add('active');
-          histInsight.textContent = `Most visitors are in the ${bins[i]}-${bins[i] + 10} range. You are here.`;
+          histInsight.textContent = `Most hearts today gathered around ${bins[i]}–${bins[i] + 10} bpm — yours is one of them.`;
         }
 
         histWrap.appendChild(bar);
