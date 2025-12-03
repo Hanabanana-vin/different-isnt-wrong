@@ -1061,6 +1061,25 @@
       twinDesc.textContent = `Visitor #${closest.id.toString().padStart(3, '0')} (${closest.bpm} bpm)`;
     }
 
+    function updateGauge(bpm) {
+      // Range: 50 (min) to 120 (max)
+      const min = 50;
+      const max = 120;
+      let pct = ((bpm - min) / (max - min)) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+
+      // Animate width and left
+      // We can use CSS transition if set, or just set it directly.
+      // Let's set it directly, assuming CSS transition handles the smooth move.
+      gaugeFill.style.width = `${pct}%`;
+      gaugeMarker.style.left = `${pct}%`;
+
+      // Update text
+      if (pct < 33) gaugeText.textContent = "Slower than Average";
+      else if (pct > 66) gaugeText.textContent = "Faster than Average";
+      else gaugeText.textContent = "Average Rhythm";
+    }
+
     // Modified Update Functions
     let lastMeasuredBpm = 80; // Store for redraws
 
