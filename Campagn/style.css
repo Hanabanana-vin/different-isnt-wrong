@@ -448,19 +448,19 @@ button#btn-restart:hover {
 
 /* Pre-measurement Instruction Graphic */
 .instruction-graphic {
-  position: relative;
+  position: absolute;
+  top: -80px;
+  /* Move way up outside the card */
+  left: 50%;
+  transform: translateX(-50%);
   width: 120px;
   height: 120px;
-  margin: 10px auto 40px;
-  /* Added top margin to push it down a bit, but arrow points up */
+  z-index: 20;
 }
-
-/* Camera cue removed */
 
 .finger-cue {
   position: absolute;
   top: 0;
-  /* Align to top */
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50px;
@@ -473,15 +473,61 @@ button#btn-restart:hover {
 
 .arrow-cue {
   position: absolute;
-  top: -60px;
-  /* Move arrow higher up */
+  top: 60px;
+  /* Below the finger cue, pointing up */
   left: 50%;
   transform: translateX(-50%);
   font-size: 40px;
-  /* Larger arrow */
   font-weight: 800;
   color: var(--primary);
   animation: bounceArrowUp 1s infinite;
+}
+
+/* CSS Illustration (Placeholder for Image) */
+.illustration-wrap {
+  margin: 24px auto;
+  text-align: center;
+}
+
+.ipad-illustration-placeholder {
+  width: 120px;
+  height: 160px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  margin: 0 auto;
+  position: relative;
+  background: #fff;
+}
+
+.ipad-outline {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.camera-dot {
+  width: 6px;
+  height: 6px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.finger-line {
+  width: 40px;
+  height: 60px;
+  border: 2px solid var(--text-main);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  position: absolute;
+  top: 4px;
+  /* Covering camera */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 @keyframes fingerPulse {
@@ -504,10 +550,10 @@ button#btn-restart:hover {
   }
 
   50% {
-    transform: translateX(-50%) translateY(-15px);
+    transform: translateX(-50%) translateY(10px);
   }
 
-  /* Bounce Up */
+  /* Bounce Up/Down */
 }
 
 /* Graph */
