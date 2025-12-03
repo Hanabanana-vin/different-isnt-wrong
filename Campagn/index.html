@@ -176,7 +176,7 @@
         </div>
 
         <p class="tiny">Gently cover the camera with your fingertip and stay still for a moment.</p>
-        <p class="tiny" id="signal-status"></p>
+
 
         <div class="loader"></div>
         <div class="scan-percent" id="scan-percent">Requesting camera permission…</div>
@@ -184,7 +184,7 @@
         <!-- 실시간 심박 그래프 -->
         <!-- 실시간 심박 그래프 -->
         <canvas id="graph" width="320" height="80"></canvas>
-
+        <p class="tiny" id="signal-status"></p>
         <p class="tiny">
           This heartbeat is estimated from tiny light changes on your fingertip.
           It is not a medical measurement, but a way to visualize your rhythm.
@@ -1077,11 +1077,18 @@
     }
 
     function updateGauge(bpm) {
-      // Range: 50 (min) to 120 (max)
-      const min = 50;
-      const max = 120;
-      let pct = ((bpm - min) / (max - min)) * 100;
-      pct = Math.max(0, Math.min(100, pct));
+      let pct;
+      let text;
+
+      if (bpm >= 130) {
+        // Faster than Average
+        pct = 85; // Fixed high position
+        text = "Faster than Average";
+      } else {
+        // Always Average for < 130
+        pct = 50; // Center position
+        text = "Average Rhythm";
+      }
 
       // Store target for animation
       gaugeFill.dataset.target = `${pct}%`;
@@ -1092,9 +1099,7 @@
       gaugeMarker.style.left = '0%';
 
       // Update text
-      if (pct < 33) gaugeText.textContent = "Slower than Average";
-      else if (pct > 66) gaugeText.textContent = "Faster than Average";
-      else gaugeText.textContent = "Average Rhythm";
+      gaugeText.textContent = text;
     }
 
     // Modified Update Functions
