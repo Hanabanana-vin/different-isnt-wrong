@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Different is not wrong – Stress Rhythm Check</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="shell">
+
+    <!-- INTRO -->
+    <div class="card" id="screen-intro">
+      <div class="tagline">Different is not wrong</div>
+      <h1 class="intro_h1">Take care of<br>your mental health</h1>
+      <p>
+        Check your stress levels quickly and easily, and restore your mental wellbeing.
+      </p>
+      <div class="btn-row">
+        <button class="primary" id="btn-start">Start Stress Check</button>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="card" id="q1" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q1">← Back</button>
+        <div class="progress-bar">
+          <div class="fill" style="width:25%;"></div>
+        </div>
+      </div>
+      <div class="step-label">Question 1 of 5</div>
+      <h2>What is your age group?</h2>
+      <p>Please answer honestly, just as you normally think.</p>
+      <div class="options-block">
+        <div class="opt" data-key="identity">10s</div>
+        <div class="opt" data-key="identity">20s</div>
+        <div class="opt" data-key="identity">30s</div>
+        <div class="opt" data-key="identity">40s</div>
+        <div class="opt" data-key="identity">50s</div>
+        <div class="opt" data-key="identity">over 60s</div>
+      </div>
+    </div>
+
+
+    <!-- Q2 -->
+    <div class="card" id="q2" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q2">← Back</button>
+        <div class="progress-bar">
+          <div class="fill" style="width:50%;"></div>
+        </div>
+      </div>
+      <div class="step-label">Question 2 of 5</div>
+      <h2>Should a government be allowed to restrict civil liberties during a national emergency?</h2>
+      <p>Please answer honestly, just as you normally think.</p>
+      <div class="options-block">
+        <div class="opt" data-key="politics">Yes</div>
+        <div class="opt" data-key="politics">Sometimes</div>
+        <div class="opt" data-key="politics">Rarely</div>
+        <div class="opt" data-key="politics">Never</div>
+      </div>
+    </div>
+
+
+    <!-- Q3 -->
+    <div class="card" id="q3" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q3">← Back</button>
+        <div class="progress-bar">
+          <div class="fill" style="width:75%;"></div>
+        </div>
+      </div>
+      <div class="step-label">Question 3 of 5</div>
+      <h2>Do you support European bans on full-face religious coverings (burqa/niqab) in public spaces?</h2>
+      <p>Please answer honestly, just as you normally think.</p>
+      <div class="options-block">
+        <div class="opt" data-key="gender">Support</div>
+        <div class="opt" data-key="gender">Oppose</div>
+        <div class="opt" data-key="gender">Depends</div>
+        <div class="opt" data-key="gender">Not sure</div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="card" id="q4" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q4">← Back</button>
+        <div class="progress-bar">
+          <div class="fill" style="width:80%;"></div>
+        </div>
+      </div>
+      <div class="step-label">Question 4 of 5</div>
+      <h2>How do you view Spain’s ‘Okupa’ movement—illegally occupying empty homes?</h2>
+      <p>Please answer honestly, just as you normally think.</p>
+      <div class="options-block">
+        <div class="opt" data-key="identity">Justified</div>
+        <div class="opt" data-key="identity">Unjustified</div>
+        <div class="opt" data-key="identity">Context matters</div>
+        <div class="opt" data-key="identity">Not sure</div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="card" id="q5" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q5">← Back</button>
+        <div class="progress-bar">
+          <div class="fill" style="width: 100%;"></div>
+        </div>
+      </div>
+      <div class="step-label">Question 5 of 5</div>
+      <h2>How do you view the rising age-based hostility toward older adults in Korea’s pension debates?</h2>
+      <p>There is no right or wrong answer.</p>
+      <div class="options-block">
+        <div class="opt" data-key="stress">Support</div>
+        <div class="opt" data-key="stress">Oppose</div>
+        <div class="opt" data-key="stress">Depends</div>
+        <div class="opt" data-key="stress">Not sure</div>
+      </div>
+    </div>
+
+
+
+    <!-- STEP 2: MEASURE -->
+    <div class="card" id="screen-measure" style="display:none;">
+      <div class="step-label">Step 2 · Heart rhythm capture</div>
+      <div class="center">
+        <h2>Please cover the camera with your fingertip.</h2>
+        <p>Breathe in and out comfortably.</p>
+
+        <div class="camera-wrap" id="camera-wrap">
+          <video id="cam" autoplay playsinline></video>
+
+        </div>
+
+        <p class="tiny">Gently cover the camera with your fingertip and stay still for a moment.</p>
+        <p class="tiny" id="signal-status"></p>
+
+        <div class="loader"></div>
+        <div class="scan-percent" id="scan-percent">Requesting camera permission…</div>
+
+        <!-- 실시간 심박 그래프 -->
+        <!-- 실시간 심박 그래프 -->
+        <canvas id="graph" width="320" height="80"></canvas>
+
+        <p class="tiny">
+          This heartbeat is estimated from tiny light changes on your fingertip.
+          It is not a medical measurement, but a way to visualize your rhythm.
+        </p>
+      </div>
+    </div>
+
+    <!-- STEP 3: RESULT -->
+    <!-- STEP 3: RESULT CAROUSEL -->
+    <div id="screen-result" style="display:none;">
+      <div class="carousel-container" id="result-carousel">
+
+        <!-- PAGE 1: The World View -->
+        <div class="result-slide active" id="slide-1">
+          <div class="slide-content center-text">
+            <h2 class="fade-in-text">There are more than<br>8.2 billion people<br>living completely<br>different lives.
+            </h2>
+            <p class="fade-in-text delay-1">Some start before sunrise.<br>Some move slowly.<br>Some feel safe.<br>Some
+              feel watched.</p>
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
+
+        <!-- PAGE 2: Zoom Into the Visitor -->
+        <div class="result-slide" id="slide-2">
+          <div class="slide-content center-text">
+            <h2 class="fade-in-text">Just as everyone lives<br>in different environments<br>and rhythms,<br>different is
+              not wrong.</h2>
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
+
+        <!-- PAGE 3: Visitor’s Heartbeat -->
+        <div class="result-slide" id="slide-3">
+          <div class="slide-content center-text">
+            <p class="fade-in-text">Meanwhile,<br>your heart kept going.</p>
+            <div class="result-bpm fade-in-text delay-1" id="result-bpm">– bpm</div>
+            <div class="result-label fade-in-text delay-2" id="result-label">unique rhythm pattern</div>
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
+
+        <!-- PAGE 4: Position Among Others (Gauge) -->
+        <div class="result-slide" id="slide-4">
+          <div class="slide-content">
+            <h2 class="slide-title fade-in-text">This is where your rhythm sits among the others who stood here today.
+            </h2>
+
+            <div class="gauge-card fade-in-text delay-1">
+              <div class="gauge-wrap">
+                <div class="gauge-bar">
+                  <div class="gauge-fill" id="gauge-fill"></div>
+                  <div class="gauge-marker" id="gauge-marker"></div>
+                </div>
+                <div class="gauge-labels">
+                  <span>0%</span>
+                  <span id="gauge-text">50th Percentile</span>
+                  <span>100%</span>
+                </div>
+              </div>
+              <div class="distribution-insight" id="gauge-insight">
+                You are in the 46th percentile.
+              </div>
+            </div>
+
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
+
+        <!-- PAGE 5: Crowd Visualization -->
+        <div class="result-slide" id="slide-5">
+          <div class="slide-content scrollable">
+
+            <!-- A. Heart Rhythm Cluster Map -->
+            <div class="distribution-card">
+              <div class="distribution-title">Heart Rhythm Cluster Map</div>
+              <div class="cluster-map-wrap">
+                <canvas id="cluster-canvas" width="300" height="200"></canvas>
+              </div>
+              <div class="distribution-desc">
+                Your heart blends into this moving crowd.
+              </div>
+            </div>
+
+            <!-- B. Neighborhood Statistics -->
+            <div class="neighborhood-wrap">
+              <div class="nb-card">
+                <div class="nb-count" id="nb-count-2">--</div>
+                <div class="nb-label">People ±2 bpm</div>
+              </div>
+              <div class="nb-card">
+                <div class="nb-count" id="nb-count-5">--</div>
+                <div class="nb-label">People ±5 bpm</div>
+              </div>
+              <div class="nb-card">
+                <div class="nb-count" id="nb-count-unique">--</div>
+                <div class="nb-label">Exact Match</div>
+              </div>
+            </div>
+
+            <!-- C. Population Distribution -->
+            <div class="distribution-card">
+              <div class="distribution-title">Population Distribution</div>
+              <div class="histogram-wrap" id="histogram-wrap">
+                <!-- Bars injected by JS -->
+              </div>
+              <div class="distribution-insight" id="hist-insight">
+                Many visitors gather around 70–90 bpm.
+              </div>
+            </div>
+
+            <!-- Heart Twin -->
+            <div class="heart-twin-card">
+              <div class="twin-icon">♥</div>
+              <div class="twin-info">
+                <div class="twin-title">Your Heart Twin</div>
+                <div class="twin-desc" id="twin-desc">Visitor #042 (81 bpm)</div>
+              </div>
+            </div>
+
+            <!-- Closing -->
+            <div class="closing-text">
+              <p>Different opinions. Different fears. Different sides.<br>
+                But still, a heart moving inside the same human range.<br>
+                <strong>Different is not wrong.</strong>
+              </p>
+            </div>
+
+            <div class="btn-row">
+              <button id="btn-restart">Try again</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PPG 분석용 숨은 캔버스 -->
+    <canvas id="ppg-canvas" width="64" height="48" style="display:none;"></canvas>
+
+  </div>
+
+  <script>
+    // 화면 요소들
+    const intro = document.getElementById('screen-intro');
+    const q1 = document.getElementById('q1');
+    const q2 = document.getElementById('q2');
+    const q3 = document.getElementById('q3');
+    const q4 = document.getElementById('q4');
+    const q5 = document.getElementById('q5');
+    const mScreen = document.getElementById('screen-measure');
+    const rScreen = document.getElementById('screen-result');
+
+    const btnStart = document.getElementById('btn-start');
+    const btnRestart = document.getElementById('btn-restart');
+
+    const backQ1 = document.getElementById('back-q1');
+    const backQ2 = document.getElementById('back-q2');
+    const backQ3 = document.getElementById('back-q3');
+    const backQ4 = document.getElementById('back-q4');
+    const backQ5 = document.getElementById('back-q5');
+
+    const bpmEl = document.getElementById('result-bpm');
+    const labelEl = document.getElementById('result-label');
+
+    const nrMarkerLine = document.getElementById("nr-marker-line");
+    const nrMarkerDot = document.getElementById("nr-marker-dot");
+    const nrMarkerLabel = document.getElementById("nr-marker-label");
+    const nrBpmInline = document.getElementById("nr-bpm-inline");
+
+
+    const scanPercentEl = document.getElementById('scan-percent');
+    const signalStatusEl = document.getElementById('signal-status');
+    const camWrap = document.getElementById('camera-wrap');
+    const video = document.getElementById('cam');
+
+    const ppgCanvas = document.getElementById('ppg-canvas');
+    const ppgCtx = ppgCanvas.getContext('2d');
+
+    const graphCanvas = document.getElementById('graph');
+    const graphCtx = graphCanvas.getContext('2d');
+
+
+
+    function updateNormalMarker(bpm) {
+      const normalMin = 50;
+      const normalMax = 120;
+      const range = normalMax - normalMin;
+
+      const clamped = Math.max(normalMin, Math.min(normalMax, bpm));
+      const t = (clamped - normalMin) / range; // 0~1
+
+      // boundary: 10% ~ 90%
+      const x = 10 + t * 80;
+
+      nrMarkerLine.setAttribute("x1", x);
+      nrMarkerLine.setAttribute("x2", x);
+      nrMarkerDot.setAttribute("cx", x);
+      nrMarkerLabel.setAttribute("x", x);
+
+      nrBpmInline.textContent = `${bpm} bpm`;
+    }
+
+    let camStream = null;
+    let scanAnimFrame = null;
+
+    // PPG 수집용
+    let ppgData = [];     // {t, v}
+    let ppgFrameHandle = null;
+    let ppgStartTime = 0;
+
+    let graphData = [];
+    const QUALITY_WIN = 40;
+    let qualityWindow = [];
+    let signalOk = false;
+    let ppgMode = false;
+
+    let scanProgress = 0;
+
+    let answers = {
+      politics: null,
+      gender: null,
+      identity: null,
+      stress: null,
+    };
+
+    function show(screen) {
+      intro.style.display = 'none';
+      q1.style.display = 'none';
+      q2.style.display = 'none';
+      q3.style.display = 'none';
+      q4.style.display = 'none';
+      q5.style.display = 'none';
+      mScreen.style.display = 'none';
+      rScreen.style.display = 'none';
+      screen.style.display = 'block';
+    }
+
+    btnStart.onclick = () => show(q1);
+
+    // 뒤로가기
+    backQ1.onclick = () => show(intro);
+    backQ2.onclick = () => show(q1);
+    backQ3.onclick = () => show(q2);
+    backQ4.onclick = () => show(q3);
+    backQ5.onclick = () => show(q4);
+
+    // 질문 선택
+    q1.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.politics = opt.textContent.trim();
+        q1.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(q2);
+      });
+    });
+
+    q2.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.gender = opt.textContent.trim();
+        q2.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(q3);
+      });
+    });
+
+    q3.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.gender = opt.textContent.trim();
+        q3.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(q4);
+      });
+    });
+
+    q4.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.identity = opt.textContent.trim();
+        q4.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(q5);
+      });
+    });
+
+    q5.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.stress = opt.textContent.trim();
+        q5.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(mScreen);
+        startCamera();
+      });
+    });
+
+    // 카메라 + PPG
+    async function startCamera() {
+      scanPercentEl.textContent = "Requesting camera permission…";
+      signalStatusEl.textContent = "";
+      scanProgress = 0;
+      try {
+        camStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = camStream;
+        ppgMode = true;
+        startPPG();
+        startScanAnimation();
+      } catch (e) {
+        console.warn("Camera error:", e);
+        ppgMode = false;
+        signalStatusEl.textContent = "Camera unavailable. We will simulate your rhythm.";
+        startScanAnimation();
+      }
+    }
+
+    function stopCamera() {
+      if (!camStream) return;
+      camStream.getTracks().forEach(t => t.stop());
+      camStream = null;
+      video.srcObject = null;
+    }
+
+    // PPG 수집 시작
+    function startPPG() {
+      ppgData = [];
+      graphData = [];
+      qualityWindow = [];
+      signalOk = false;
+      ppgStartTime = performance.now();
+
+      function capture(now) {
+        if (!video.videoWidth || !video.videoHeight) {
+          ppgFrameHandle = requestAnimationFrame(capture);
+          return;
+        }
+        const w = ppgCanvas.width;
+        const h = ppgCanvas.height;
+        ppgCtx.drawImage(video, 0, 0, w, h);
+        const frame = ppgCtx.getImageData(0, 0, w, h).data;
+        let sum = 0;
+        let count = 0;
+        const startX = Math.floor(w * 0.25);
+        const endX = Math.floor(w * 0.75);
+        const startY = Math.floor(h * 0.25);
+        const endY = Math.floor(h * 0.75);
+
+        for (let y = startY; y < endY; y++) {
+          for (let x = startX; x < endX; x++) {
+            const idx = (y * w + x) * 4;
+            const r = frame[idx]; // R 채널
+            sum += r;
+            count++;
+          }
+        }
+        const avg = sum / count;
+        const t = (now - ppgStartTime) / 1000;
+        ppgData.push({ t, v: avg });
+
+        // 품질 평가용 윈도우
+        qualityWindow.push(avg);
+        if (qualityWindow.length > QUALITY_WIN) qualityWindow.shift();
+        if (qualityWindow.length >= QUALITY_WIN) {
+          let qMin = Infinity, qMax = -Infinity;
+          for (const v of qualityWindow) {
+            if (v < qMin) qMin = v;
+            if (v > qMax) qMax = v;
+          }
+          const amp = qMax - qMin; // 변화폭
+          if (amp < 2) {
+            // 거의 변동 없음 → 손가락 안 가려짐/너무 어두움
+            signalOk = false;
+            signalStatusEl.textContent = "We can’t clearly see your fingertip. Please fully cover the camera and stay still.";
+          } else {
+            signalOk = true;
+            signalStatusEl.textContent = "We are detecting subtle changes in your blood flow. Keep still…";
+          }
+        } else {
+          signalStatusEl.textContent = "Trying to lock onto your rhythm…";
+        }
+
+        // 그래프용 데이터
+        graphData.push(avg);
+        if (graphData.length > 400) graphData.shift();
+        drawGraph();
+
+        ppgFrameHandle = requestAnimationFrame(capture);
+      }
+
+      if (ppgFrameHandle) cancelAnimationFrame(ppgFrameHandle);
+      ppgFrameHandle = requestAnimationFrame(capture);
+    }
+
+    function stopPPG() {
+      if (ppgFrameHandle) cancelAnimationFrame(ppgFrameHandle);
+      ppgFrameHandle = null;
+    }
+
+    // 실시간 파형 그래프
+    function drawGraph() {
+      const w = graphCanvas.width;
+      const h = graphCanvas.height;
+      graphCtx.clearRect(0, 0, w, h);
+      if (graphData.length < 2) return;
+
+      let gMin = Infinity, gMax = -Infinity;
+      for (const v of graphData) {
+        if (v < gMin) gMin = v;
+        if (v > gMax) gMax = v;
+      }
+      const amp = gMax - gMin || 1;
+
+      graphCtx.beginPath();
+      for (let i = 0; i < graphData.length; i++) {
+        const norm = (graphData[i] - gMin) / amp; // 0~1
+        const x = (i / (graphData.length - 1)) * w;
+        const y = h - (0.2 + norm * 0.6) * h;     // 가운데 띠에 그리기
+        if (i === 0) graphCtx.moveTo(x, y);
+        else graphCtx.lineTo(x, y);
+      }
+      graphCtx.strokeStyle = 'rgba(186,214,235,0.9)';
+      graphCtx.lineWidth = 2;
+      graphCtx.stroke();
+    }
+
+    // 스캔 진행 (시간 + 신호품질 기반)
+    function startScanAnimation() {
+      if (scanAnimFrame) cancelAnimationFrame(scanAnimFrame);
+      const start = performance.now();
+      let last = start;
+      scanProgress = 0;
+
+      const TARGET = 12000; // 12초 정도 목표
+      const MAX = 18000;    // 최장 18초
+
+      function tick(now) {
+        const elapsed = now - start;
+        const dt = now - last;
+        last = now;
+
+        if (!ppgMode) {
+          // 카메라 없는 경우: 그냥 시간 기반
+          scanProgress = Math.min(100, (elapsed / TARGET) * 100);
+        } else {
+          const baseSpeed = (dt / TARGET) * 100;
+          const qualityFactor = signalOk ? 1.2 : 0.3; // 품질 나쁘면 느리게
+          scanProgress = Math.min(100, scanProgress + baseSpeed * qualityFactor);
+
+          // 너무 오래 걸리면 강제로 마무리
+          if (elapsed > MAX && scanProgress < 100) {
+            scanProgress = Math.min(100, scanProgress + baseSpeed * 2);
+          }
+        }
+
+        const pct = Math.round(Math.min(100, scanProgress));
+        scanPercentEl.textContent = `Scanning your heart rhythm… ${pct}%`;
+
+        // 카메라 링 속도도 점점 빨라지게
+        const progress = pct / 100;
+        const duration = 1.6 - progress * 0.6; // 1.6s → 1.0s
+        camWrap.style.animationDuration = duration + "s";
+
+        if (pct < 100) {
+          scanAnimFrame = requestAnimationFrame(tick);
+        } else {
+          stopPPG();
+          stopCamera();
+          const measured = ppgMode ? computeBPMFromPPG(ppgData) : null;
+          show(rScreen);
+          // Small delay to ensure layout is done
+          setTimeout(() => generateResult(measured), 50);
+        }
+      }
+      scanAnimFrame = requestAnimationFrame(tick);
+    }
+
+    // PPG → BPM
+    function computeBPMFromPPG(data) {
+      if (!data || data.length < 30) return null;
+
+      const times = data.map(d => d.t);
+      const values = data.map(d => d.v);
+
+      const mean = values.reduce((a, b) => a + b, 0) / values.length;
+      const centered = values.map(v => v - mean);
+      const sq = centered.map(v => v * v);
+      const std = Math.sqrt(sq.reduce((a, b) => a + b, 0) / centered.length) || 1;
+      const norm = centered.map(v => v / std);
+
+      const win = 5;
+      const smooth = norm.map((v, i) => {
+        let s = 0, c = 0;
+        for (let k = -win; k <= win; k++) {
+          const idx = i + k;
+          if (idx >= 0 && idx < norm.length) { s += norm[idx]; c++; }
+        }
+        return s / c;
+      });
+
+      const peaks = [];
+      const threshold = 0.25;
+      for (let i = 1; i < smooth.length - 1; i++) {
+        if (smooth[i] > smooth[i - 1] && smooth[i] > smooth[i + 1] && smooth[i] > threshold) {
+          peaks.push(i);
+        }
+      }
+      if (peaks.length < 2) return null;
+
+      const intervals = [];
+      for (let i = 1; i < peaks.length; i++) {
+        const t1 = times[peaks[i - 1]];
+        const t2 = times[peaks[i]];
+        intervals.push(t2 - t1);
+      }
+      const avgInt = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+      if (!avgInt || avgInt <= 0) return null;
+
+      const bpm = 60 / avgInt;
+      if (bpm < 40 || bpm > 180) return null;
+      return Math.round(bpm);
+    }
+
+    const clusterCanvas = document.getElementById('cluster-canvas');
+    const clusterCtx = clusterCanvas.getContext('2d');
+    const gaugeFill = document.getElementById('gauge-fill');
+    const gaugeMarker = document.getElementById('gauge-marker');
+    const gaugeText = document.getElementById('gauge-text');
+    const gaugeInsight = document.getElementById('gauge-insight');
+    const histWrap = document.getElementById('histogram-wrap');
+    const histInsight = document.getElementById('hist-insight');
+    const nbCount2 = document.getElementById('nb-count-2');
+    const nbCount5 = document.getElementById('nb-count-5');
+    const nbCountUnique = document.getElementById('nb-count-unique');
+    const twinDesc = document.getElementById('twin-desc');
+
+    // Fake Population Data
+    let populationData = [];
+
+    function generateFakePopulation() {
+      populationData = [];
+      const count = 200;
+      const mean = 80;
+      const std = 15;
+
+      for (let i = 0; i < count; i++) {
+        // Box-Muller transform for normal distribution
+        const u = 1 - Math.random();
+        const v = Math.random();
+        const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        const bpm = Math.round(z * std + mean);
+        // Variability (fake metric for Y-axis)
+        const variability = Math.random() * 100;
+        populationData.push({ bpm, variability, id: i + 1 });
+      }
+    }
+
+    // Carousel Logic
+    let currentSlide = 1;
+    const totalSlides = 5;
+
+    function showSlide(index) {
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById(`slide-${i}`);
+        if (i === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      }
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    // Tap to advance
+    document.getElementById('result-carousel').addEventListener('click', (e) => {
+      // Don't advance if clicking a button or interactive element in the last slide
+      if (e.target.tagName === 'BUTTON' || e.target.closest('.scrollable')) return;
+      nextSlide();
+    });
+
+    // Also allow clicking the hint specifically
+    document.querySelectorAll('.tap-hint').forEach(hint => {
+      hint.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent double firing
+        nextSlide();
+      });
+    });
+
+    // 결과 생성
+    function generateResult(measuredBpm) {
+      console.log("measuredBpm from PPG:", measuredBpm);
+
+      let bpm;
+      if (typeof measuredBpm === "number") {
+        bpm = Math.max(50, Math.min(140, measuredBpm));
+      } else {
+        let base = 70 + Math.floor(Math.random() * 40 - 20);
+        bpm = Math.max(50, Math.min(120, base));
+      }
+
+      // Reset Carousel
+      showSlide(1);
+
+      // 1. BPM Display (Page 3)
+      animateValue(bpmEl, 0, bpm, 1500);
+
+      // 2. Label & Insight
+      let label;
+      if (bpm < 60) label = "slow, steady rhythm";
+      else if (bpm < 80) label = "calm but reactive rhythm";
+      else if (bpm < 95) label = "sensitive, responsive rhythm";
+      else label = "intense, over-alert rhythm";
+      labelEl.textContent = label;
+
+      // Generate Data if empty
+      if (populationData.length === 0) generateFakePopulation();
+
+      // 3. Render Components (Page 4 & 5)
+      // We render them immediately, but they will be hidden until slide is shown
+      drawClusterMap(bpm);
+      updateGauge(bpm);
+      updateNeighborhoodStats(bpm);
+      drawHistogram(bpm);
+      findHeartTwin(bpm);
+    }
+
+    function drawClusterMap(userBpm) {
+      const w = clusterCanvas.width;
+      const h = clusterCanvas.height;
+      clusterCtx.clearRect(0, 0, w, h);
+
+      // Draw Population (Global Scatter)
+      populationData.forEach(p => {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+
+        clusterCtx.beginPath();
+        clusterCtx.arc(x, y, 1.5, 0, Math.PI * 2);
+
+        if (p.bpm < 70) clusterCtx.fillStyle = "rgba(16, 185, 129, 0.6)";
+        else if (p.bpm < 90) clusterCtx.fillStyle = "rgba(245, 158, 11, 0.6)";
+        else clusterCtx.fillStyle = "rgba(239, 68, 68, 0.6)";
+
+        clusterCtx.fill();
+      });
+
+      // Draw User (South Korea)
+      const userX = w * 0.82;
+      const userY = h * 0.38;
+
+      // Glow
+      const grad = clusterCtx.createRadialGradient(userX, userY, 2, userX, userY, 20);
+      grad.addColorStop(0, "rgba(67, 97, 238, 1)");
+      grad.addColorStop(0.5, "rgba(67, 97, 238, 0.5)");
+      grad.addColorStop(1, "rgba(67, 97, 238, 0)");
+      clusterCtx.fillStyle = grad;
+      clusterCtx.beginPath();
+      clusterCtx.arc(userX, userY, 20, 0, Math.PI * 2);
+      clusterCtx.fill();
+
+      // Pulse Animation Ring
+      const time = Date.now() / 1000;
+      const radius = 10 + Math.sin(time * 3) * 5;
+      clusterCtx.beginPath();
+      clusterCtx.arc(userX, userY, radius, 0, Math.PI * 2);
+      clusterCtx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+      clusterCtx.lineWidth = 1;
+      clusterCtx.stroke();
+
+      // Dot
+      clusterCtx.beginPath();
+      clusterCtx.arc(userX, userY, 6, 0, Math.PI * 2);
+      clusterCtx.fillStyle = "#fff";
+      clusterCtx.fill();
+      clusterCtx.strokeStyle = "var(--primary)";
+      clusterCtx.lineWidth = 2;
+      clusterCtx.stroke();
+
+      // Label
+      clusterCtx.fillStyle = "#fff";
+      clusterCtx.font = "bold 12px Montserrat Alternates";
+      clusterCtx.textAlign = "center";
+      clusterCtx.fillText("You", userX, userY + 25);
+    }
+
+    function updateGauge(userBpm) {
+      // Approximate Percentile using Normal CDF
+      const mean = 80;
+      const std = 15;
+      const z = (userBpm - mean) / std;
+      const t = 1 / (1 + 0.3275911 * Math.abs(z));
+      const erf = 1 - ((((1.061405429 * t + -1.453152027) * t + 1.421413741) * t + -0.284496736) * t + 0.254829592) * t * Math.exp(-z * z);
+      let percentile = 0.5 * (1 + Math.sign(z) * erf);
+      percentile = Math.round(percentile * 100);
+
+      // Reset width for animation effect
+      gaugeFill.style.width = '0%';
+      gaugeMarker.style.left = '0%';
+
+      // Trigger animation after a slight delay (or when slide is shown)
+      setTimeout(() => {
+        gaugeFill.style.width = `${percentile}%`;
+        gaugeMarker.style.left = `${percentile}%`;
+      }, 500);
+
+      gaugeText.textContent = `${percentile}th Percentile`;
+
+      if (percentile > 40 && percentile < 60) {
+        gaugeInsight.textContent = `You are in the ${percentile}th percentile. Right in the middle.`;
+      } else {
+        gaugeInsight.textContent = `You are in the ${percentile}th percentile.`;
+      }
+    }
+
+    function updateNeighborhoodStats(userBpm) {
+      const range2 = populationData.filter(p => Math.abs(p.bpm - userBpm) <= 2).length;
+      const range5 = populationData.filter(p => Math.abs(p.bpm - userBpm) <= 5).length;
+      const exact = populationData.filter(p => p.bpm === userBpm).length;
+
+      nbCount2.textContent = range2;
+      nbCount5.textContent = range5;
+      nbCountUnique.textContent = exact > 0 ? exact : "1";
+    }
+
+    function drawHistogram(userBpm) {
+      histWrap.innerHTML = "";
+      const bins = [50, 60, 70, 80, 90, 100, 110, 120];
+      const counts = new Array(bins.length).fill(0);
+
+      populationData.forEach(p => {
+        for (let i = 0; i < bins.length; i++) {
+          if (p.bpm >= bins[i] && p.bpm < bins[i] + 10) {
+            counts[i]++;
+            break;
+          }
+        }
+      });
+
+      const maxCount = Math.max(...counts);
+
+      counts.forEach((count, i) => {
+        const bar = document.createElement('div');
+        bar.className = 'hist-bar';
+        const heightPct = (count / maxCount) * 100;
+        bar.style.height = `${heightPct}%`;
+        bar.setAttribute('data-count', count);
+
+        if (userBpm >= bins[i] && userBpm < bins[i] + 10) {
+          bar.classList.add('active');
+          histInsight.textContent = `Most visitors are in the ${bins[i]}-${bins[i] + 10} range. You are here.`;
+        }
+
+        histWrap.appendChild(bar);
+      });
+    }
+
+    function findHeartTwin(userBpm) {
+      // Find closest match
+      let closest = populationData[0];
+      let minDiff = Infinity;
+
+      populationData.forEach(p => {
+        const diff = Math.abs(p.bpm - userBpm);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closest = p;
+        }
+      });
+
+      twinDesc.textContent = `Visitor #${closest.id.toString().padStart(3, '0')} (${closest.bpm} bpm)`;
+    }
+
+
+
+    // 다시 시작
+    btnRestart.onclick = () => {
+      answers = { politics: null, gender: null, identity: null };
+      document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+
+      if (scanAnimFrame) cancelAnimationFrame(scanAnimFrame);
+      scanPercentEl.textContent = "Requesting camera permission…";
+      camWrap.style.animationDuration = "1.1s";
+      stopPPG();
+      stopCamera();
+      signalStatusEl.textContent = "";
+      // 초기 화면 설정
+      show(intro);
+    };
+    function animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const current = Math.floor(progress * (end - start) + start);
+        obj.textContent = `${current} bpm`;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+    // Initialize
+    show(intro);
+    // generateResult(75); // Force result screen
+    // show(rScreen);
+  </script>
+</body>
+
+</html>

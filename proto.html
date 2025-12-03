@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Different is not wrong – Stress Rhythm Check</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      /* 팔레트 기반 컬러 (Midnight 계열, peaceful) */
+      --bg: #081F5C;          /* Midnight */
+      --card: #0C1230;
+      --accent: #7096D1;      /* China */
+      --accent-soft: #BAD6EB; /* Sky */
+      --text-main: #F7F2EB;   /* Moon */
+      --text-sub: #CDD3E4;    /* Porcelain 톤다운 */
+      --border-soft: #24325E;
+      --safe: #4DA58B;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #334EAC 0%, var(--bg) 55%);
+      color:var(--text-main);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .shell {
+      width: min(960px, 100%);
+      padding: 24px 16px;
+    }
+    .card {
+      background: rgba(12, 18, 48, 0.96);
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      padding: 28px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+      backdrop-filter: blur(14px);
+    }
+    h1 {
+      font-size: 28px;
+      margin:0 0 8px;
+      letter-spacing: 0.03em;
+    }
+    h2 {
+      font-size: 22px;
+      margin:0 0 12px;
+    }
+    p {
+      margin:0 0 12px;
+      color: var(--text-sub);
+      line-height:1.5;
+    }
+    .tagline {
+      font-size: 13px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 4px;
+    }
+    .btn-row {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+    button {
+      border:0;
+      border-radius: 999px;
+      padding: 10px 18px;
+      background: #1a213f;
+      color:var(--text-main);
+      font-size: 14px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: background .18s ease, transform .1s ease, box-shadow .18s ease;
+    }
+    button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      box-shadow: 0 8px 25px rgba(112,150,209,0.45);
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.3);
+    }
+    button:active {
+      transform: translateY(0);
+      box-shadow:none;
+    }
+    .step-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #8c94c0;
+      margin-bottom: 16px;
+    }
+    .center { text-align:center; }
+
+    /* 질문용 옵션 */
+    .options-block {
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .opt {
+      border-radius:999px;
+      padding:8px 14px;
+      border:1px solid #2b3560;
+      font-size:14px;
+      cursor:pointer;
+      color: var(--text-sub);
+      background:#090c1c;
+      transition: background .16s, border-color .16s, color .16s, transform .08s;
+    }
+    .opt:hover {
+      border-color: var(--accent-soft);
+      background: rgba(186,214,235,0.12);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+    .opt.selected {
+      border-color: var(--accent-soft);
+      background: rgba(186,214,235,0.22);
+      color: var(--text-main);
+    }
+
+    /* 상단 프로그레스 + 뒤로가기 */
+    .top-nav {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .back-btn {
+      padding:6px 12px;
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid rgba(205,211,228,0.4);
+      background:transparent;
+      color:var(--text-sub);
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition: background .16s, border-color .16s, color .16s, transform .08s;
+    }
+    .back-btn:hover {
+      background: rgba(186,214,235,0.08);
+      border-color: var(--accent-soft);
+      color:var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .progress-bar {
+      flex:1;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%;
+      background: var(--accent-soft);
+      transition: width 0.35s ease;
+    }
+
+    /* 결과 하트 + 파티클 */
+    .heart-visual {
+      position:relative;
+      width: 220px;
+      height: 220px;
+      margin: 16px auto 8px;
+    }
+    .heart-circle {
+      position:absolute;
+      inset:0;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 20%, #EDF1F6, var(--accent));
+      opacity:0.18;
+      filter: blur(12px);
+    }
+    .heart-ring {
+      position:absolute;
+      inset:18px;
+      border-radius:50%;
+      border:2px solid rgba(186,214,235,0.9);
+      box-shadow: 0 0 24px rgba(112,150,209,0.6);
+      animation: pulse 1.1s ease-in-out infinite;
+      transform-origin:center;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.96); opacity:0.7; }
+      50% { transform: scale(1.04); opacity:1; }
+      100% { transform: scale(0.96); opacity:0.7; }
+    }
+    .heart-particles {
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+    }
+    .particle {
+      position:absolute;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background: var(--accent-soft);
+      opacity:0.8;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translate(0,0); opacity:0; }
+      20% { opacity:1; }
+      100% { transform: translate(var(--dx), var(--dy)); opacity:0; }
+    }
+
+    .loader {
+      width: 36px;
+      height: 36px;
+      border-radius:50%;
+      border:3px solid rgba(255,255,255,0.08);
+      border-top-color: var(--accent-soft);
+      animation: spin 1s linear infinite;
+      margin: 12px auto 0;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .scan-percent {
+      margin-top:10px;
+      font-size:13px;
+      color:#c0c7ec;
+    }
+    .result-bpm {
+      font-size:32px;
+      font-weight:700;
+      margin-bottom:4px;
+      text-align:center;
+    }
+    .result-label {
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#8b93c0;
+      margin-bottom:12px;
+      text-align:center;
+    }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:12px;
+      padding:5px 10px;
+      border-radius:999px;
+      background: rgba(77,165,139,0.08);
+      color: var(--safe);
+      border:1px solid rgba(77,165,139,0.5);
+    }
+    .quote {
+      margin-top:16px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px dashed #293253;
+      font-size:13px;
+      color:#c4c8e4;
+    }
+    .quote strong { color: var(--accent-soft); }
+    .note {
+      margin-top:10px;
+      font-size:11px;
+      color:#6e789a;
+    }
+    .tiny {
+      font-size:11px;
+      color:#677197;
+    }
+
+    /* CAMERA BUBBLE + PULSE */
+    .camera-wrap {
+      width: 180px;
+      height: 180px;
+      margin: 8px auto 4px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(186,214,235,0.9);
+      box-shadow: 0 0 26px rgba(112,150,209,0.5);
+      background:#081F5C;
+      animation: pulseCam 1.1s ease-in-out infinite;
+      transform-origin:center;
+    }
+    #cam {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9) saturate(1.4);
+    }
+    @keyframes pulseCam {
+      0%   { transform: scale(0.97); box-shadow:0 0 14px rgba(112,150,209,0.35); }
+      50%  { transform: scale(1.03); box-shadow:0 0 32px rgba(112,150,209,0.8); }
+      100% { transform: scale(0.97); box-shadow:0 0 14px rgba(112,150,209,0.35); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- INTRO -->
+    <div class="card" id="screen-intro">
+      <div class="tagline">Interactive Exhibition Prototype</div>
+      <h1>Move Before You Break – Stress Rhythm Check</h1>
+      <p>
+        This looks like a normal stress index test.  
+        But instead of telling you what’s “normal”, it reveals that your heart’s rhythm – fast or slow – is not wrong, just different.
+      </p>
+      <p class="tiny">Concept by Hana · Message: <strong>“Different is not wrong.”</strong></p>
+      <div class="btn-row">
+        <button class="primary" id="btn-start">Start “Stress Check”</button>
+      </div>
+    </div>
+
+    <!-- QUESTION 1 -->
+    <div class="card" id="q1" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q1">← Back</button>
+        <div class="progress-bar"><div class="fill" style="width:33%;"></div></div>
+      </div>
+      <div class="step-label">Question 1 of 3</div>
+      <h2>Politically, people often label you as…</h2>
+      <p>There is no right answer. We only observe how your body reacts.</p>
+
+      <div class="options-block">
+        <div class="opt" data-key="politics">Left</div>
+        <div class="opt" data-key="politics">Right</div>
+        <div class="opt" data-key="politics">Center</div>
+        <div class="opt" data-key="politics">“Too radical”</div>
+        <div class="opt" data-key="politics">“Too quiet”</div>
+      </div>
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="card" id="q2" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q2">← Back</button>
+        <div class="progress-bar"><div class="fill" style="width:66%;"></div></div>
+      </div>
+      <div class="step-label">Question 2 of 3</div>
+      <h2>When it comes to gender, you feel…</h2>
+      <p>Your answer may shift over time. That movement is also a rhythm.</p>
+
+      <div class="options-block">
+        <div class="opt" data-key="gender">Very clearly defined</div>
+        <div class="opt" data-key="gender">Somewhere in between</div>
+        <div class="opt" data-key="gender">Questioned or judged</div>
+        <div class="opt" data-key="gender">I don’t want to answer</div>
+      </div>
+    </div>
+
+    <!-- QUESTION 3 -->
+    <div class="card" id="q3" style="display:none;">
+      <div class="top-nav">
+        <button class="back-btn" id="back-q3">← Back</button>
+        <div class="progress-bar"><div class="fill" style="width:100%;"></div></div>
+      </div>
+      <div class="step-label">Question 3 of 3</div>
+      <h2>How often do you feel “othered” because of who you are?</h2>
+      <p>Race, age, accent, body, background… the world reacts before it listens.</p>
+
+      <div class="options-block">
+        <div class="opt" data-key="identity">Almost never</div>
+        <div class="opt" data-key="identity">Sometimes</div>
+        <div class="opt" data-key="identity">Quite often</div>
+        <div class="opt" data-key="identity">All the time</div>
+      </div>
+    </div>
+
+    <!-- STEP 2: MEASURE -->
+    <div class="card" id="screen-measure" style="display:none;">
+      <div class="step-label">Step 2 · Heart rhythm capture</div>
+      <div class="center">
+        <h2>We are listening to your rhythm…</h2>
+        <p>Your heart is reacting to the questions. That reaction is already valid — even if it looks messy.</p>
+
+        <div class="camera-wrap" id="camera-wrap">
+          <video id="cam" autoplay playsinline></video>
+        </div>
+        <p class="tiny">Gently cover the camera with your fingertip and stay still for a moment.</p>
+
+        <div class="loader"></div>
+        <div class="scan-percent" id="scan-percent">Requesting camera permission…</div>
+
+        <p class="tiny">
+          In the real installation, this step is connected to an Arduino pulse sensor.  
+          Here, we use the camera as a symbolic interface.
+        </p>
+      </div>
+    </div>
+
+    <!-- STEP 3: RESULT -->
+    <div class="card" id="screen-result" style="display:none;">
+      <div class="step-label">Step 3 · Result</div>
+      <h2>Your heart answered first.</h2>
+      <p>Based on your reactions, this is how your rhythm looked in that moment.</p>
+
+      <div class="heart-visual">
+        <div class="heart-circle"></div>
+        <div class="heart-ring" id="heart-ring"></div>
+        <div class="heart-particles" id="heart-particles"></div>
+      </div>
+
+      <div class="center">
+        <div class="result-bpm" id="result-bpm">– bpm</div>
+        <div class="result-label" id="result-label">unique rhythm pattern</div>
+        <div class="pill">
+          <span>✓</span> different is not wrong
+        </div>
+      </div>
+
+      <div class="quote" id="result-quote"></div>
+
+      <p class="note">
+        This is not a medical diagnosis.  
+        It is a poetic mirror of how your body responds when the world tries to put you into strict categories.
+      </p>
+
+      <div class="btn-row">
+        <button id="btn-restart">Try again with a different rhythm</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 화면 요소들
+    const intro = document.getElementById('screen-intro');
+    const q1 = document.getElementById('q1');
+    const q2 = document.getElementById('q2');
+    const q3 = document.getElementById('q3');
+    const mScreen = document.getElementById('screen-measure');
+    const rScreen = document.getElementById('screen-result');
+
+    const btnStart = document.getElementById('btn-start');
+    const btnRestart = document.getElementById('btn-restart');
+
+    const backQ1 = document.getElementById('back-q1');
+    const backQ2 = document.getElementById('back-q2');
+    const backQ3 = document.getElementById('back-q3');
+
+    const ring = document.getElementById('heart-ring');
+    const particlesWrap = document.getElementById('heart-particles');
+    const bpmEl = document.getElementById('result-bpm');
+    const labelEl = document.getElementById('result-label');
+    const quoteEl = document.getElementById('result-quote');
+
+    const scanPercentEl = document.getElementById('scan-percent');
+    const camWrap = document.getElementById('camera-wrap');
+    const video = document.getElementById('cam');
+
+    let camStream = null;
+    let scanAnimFrame = null;
+
+    let answers = {
+      politics: null,
+      gender: null,
+      identity: null,
+    };
+
+    function show(screen) {
+      intro.style.display = 'none';
+      q1.style.display = 'none';
+      q2.style.display = 'none';
+      q3.style.display = 'none';
+      mScreen.style.display = 'none';
+      rScreen.style.display = 'none';
+      screen.style.display = 'block';
+    }
+
+    btnStart.onclick = () => show(q1);
+
+    // 뒤로가기
+    backQ1.onclick = () => show(intro);
+    backQ2.onclick = () => show(q1);
+    backQ3.onclick = () => show(q2);
+
+    // 각 질문 카드의 옵션 클릭 → 답 저장 + 다음 화면
+    q1.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.politics = opt.textContent.trim();
+        q1.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(q2);
+      });
+    });
+
+    q2.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.gender = opt.textContent.trim();
+        q2.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(q3);
+      });
+    });
+
+    q3.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        answers.identity = opt.textContent.trim();
+        q3.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        show(mScreen);
+        startCamera();
+      });
+    });
+
+    // 카메라 제어
+    async function startCamera() {
+      scanPercentEl.textContent = "Requesting camera permission…";
+      try {
+        camStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = camStream;
+        startScanAnimation();   // 허용된 시점부터 % 시작
+      } catch (e) {
+        console.warn("Camera error:", e);
+        scanPercentEl.textContent = "Camera unavailable. Simulating scan…";
+        startScanAnimation();   // 실패해도 연출은 진행
+      }
+    }
+
+    function stopCamera() {
+      if (!camStream) return;
+      camStream.getTracks().forEach(t => t.stop());
+      camStream = null;
+      video.srcObject = null;
+    }
+
+    // 7초 동안 스캔 % + 카메라 펄스 속도
+    function startScanAnimation() {
+      if (scanAnimFrame) cancelAnimationFrame(scanAnimFrame);
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const pct = Math.min(100, Math.round(elapsed / 7000 * 100));
+        scanPercentEl.textContent = `Scanning your heart rhythm… ${pct}%`;
+
+        const progress = pct / 100;
+        const duration = 1.6 - progress * 0.6; // 1.6s → 1.0s
+        camWrap.style.animationDuration = duration + "s";
+
+        if (pct < 100) {
+          scanAnimFrame = requestAnimationFrame(tick);
+        } else {
+          stopCamera();
+          generateResult();
+          show(rScreen);
+        }
+      }
+      scanAnimFrame = requestAnimationFrame(tick);
+    }
+
+    // 결과 생성
+    function generateResult() {
+      let base = 72 + Math.floor(Math.random()*16 - 8);
+      if (answers.identity === 'Quite often' || answers.identity === 'All the time') base += 8;
+      if (answers.identity === 'Almost never') base -= 4;
+      const bpm = Math.max(52, Math.min(120, base));
+
+      const beatHz = bpm / 60;
+      const duration = Math.max(0.5, Math.min(1.8, 1.6 - (beatHz-1)*0.4));
+      ring.style.animationDuration = duration + 's';
+
+      bpmEl.textContent = `${bpm} bpm`;
+
+      let label;
+      if (bpm < 60) label = "slow, steady rhythm";
+      else if (bpm < 80) label = "calm but reactive rhythm";
+      else if (bpm < 95) label = "sensitive, responsive rhythm";
+      else label = "intense, over-alert rhythm";
+      labelEl.textContent = label;
+
+      const sentences = [];
+
+      if (answers.politics === '“Too radical”') {
+        sentences.push("When people call you “too radical”, your heart simply refuses to stay numb.");
+      } else if (answers.politics === '“Too quiet”') {
+        sentences.push("Silence doesn’t mean you don’t feel. Your heart still has a voice.");
+      }
+
+      if (answers.gender === 'Somewhere in between') {
+        sentences.push("Your rhythm doesn’t sit on one side. It moves in between, and that in–between is real.");
+      } else if (answers.gender === 'Questioned or judged') {
+        sentences.push("Being questioned doesn’t make your identity less valid. Your heart already knows who you are.");
+      }
+
+      if (answers.identity === 'Quite often' || answers.identity === 'All the time') {
+        sentences.push("Feeling “othered” is heavy — your heart learns how to be strong in an unfriendly rhythm.");
+      } else if (answers.identity === 'Almost never') {
+        sentences.push("You rarely feel “othered”, but your rhythm is still uniquely yours.");
+      }
+
+      sentences.push("<strong>Different is not wrong.</strong> Fast or slow, stable or shaky — your heart is not a mistake, it is a rhythm.");
+      quoteEl.innerHTML = sentences.join(" ");
+
+      // 파티클
+      particlesWrap.innerHTML = "";
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 60 + Math.random() * 70;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist;
+        p.style.left = '50%';
+        p.style.top = '50%';
+        p.style.setProperty('--dx', dx + 'px');
+        p.style.setProperty('--dy', dy + 'px');
+        p.style.animationDelay = (Math.random()*1.2) + 's';
+        p.style.animationDuration = (2.5 + Math.random()*1.5) + 's';
+        particlesWrap.appendChild(p);
+      }
+    }
+
+    // 다시 시작
+    btnRestart.onclick = () => {
+      // 답 리셋
+      answers = { politics:null, gender:null, identity:null };
+
+      // 선택 시각 리셋
+      document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+
+      // 스캔 애니메이션 리셋
+      if (scanAnimFrame) cancelAnimationFrame(scanAnimFrame);
+      scanPercentEl.textContent = "Requesting camera permission…";
+      camWrap.style.animationDuration = "1.1s";
+      stopCamera();
+
+      show(q1);
+    };
+
+  </script>
+</body>
+</html>
