@@ -142,12 +142,12 @@
       <!-- Top Interaction pointing to camera (Moved to global) -->
 
       <div class="step-label">Preparation</div>
-      <h2 class="center">Ready to measure?</h2>
+      <h2 class="center" style="margin-bottom: 10px;">Ready to measure?</h2>
       <p class="center">For an accurate stress index, we will measure your heart rate.</p>
 
       <!-- Line Illustration -->
       <div class="illustration-wrap">
-        <img src="ipad_instruction.png?v=3" alt="iPad Camera Instruction" class="instruction-img">
+        <img src="Frame 1.png" alt="iPad Camera Instruction" class="instruction-img">
       </div>
 
       <p class="center" style="margin-top:20px;">
@@ -163,7 +163,7 @@
     <div class="card" id="screen-measure" style="display:none;">
       <div class="step-label">Step 2 · Heart rhythm capture</div>
       <div class="center">
-        <h2>Please cover the camera with your fingertip.</h2>
+        <h2>Please cover the camera<br> with your fingertip.</h2>
         <p>Breathe in and out comfortably.</p>
 
         <div class="camera-wrap" id="camera-wrap">
@@ -197,6 +197,12 @@
         <div class="result-slide active" id="slide-1">
           <div class="slide-content center-text">
             <p class="fade-in-text">Meanwhile,<br>your heart kept going.</p>
+
+            <!-- Heart Rate Graphic -->
+            <div class="ecg-wrap fade-in-text delay-1">
+              <canvas id="result-ecg-canvas" width="300" height="100"></canvas>
+            </div>
+
             <div class="result-bpm fade-in-text delay-1" id="result-bpm">– bpm</div>
             <div class="result-label fade-in-text delay-2" id="result-label">unique rhythm pattern</div>
           </div>
@@ -791,6 +797,101 @@
       });
     });
 
+    // ECG Animation
+    const ecgCanvas = document.getElementById('result-ecg-canvas');
+    const ecgCtx = ecgCanvas.getContext('2d');
+    let ecgFrame = null;
+
+    function startECGAnimation(bpm) {
+      if (ecgFrame) cancelAnimationFrame(ecgFrame);
+
+      const width = ecgCanvas.width;
+      const height = ecgCanvas.height;
+      const centerY = height / 2;
+
+      let x = 0;
+      const speed = 2; // pixels per frame
+      const intervalFrames = (60 / bpm) * 60; // approx frames per beat (assuming 60fps)
+      let framesSinceBeat = 0;
+
+      // Clear canvas
+      ecgCtx.fillStyle = '#fff';
+      ecgCtx.fillRect(0, 0, width, height);
+      ecgCtx.lineWidth = 2;
+      ecgCtx.strokeStyle = '#EF4444'; // Red color
+      ecgCtx.lineCap = 'round';
+      ecgCtx.lineJoin = 'round';
+
+      ecgCtx.beginPath();
+      ecgCtx.moveTo(0, centerY);
+
+      // Store path history to redraw scrolling effect? 
+      // Simpler: Draw a "scan line" erasing old and drawing new
+      // Or: Just move x from 0 to width, then clear and loop.
+
+      // Let's do the "scan" style: x moves, we clear a rect ahead of x, and draw line.
+
+      let lastY = centerY;
+
+      function loop() {
+        framesSinceBeat++;
+
+        // Calculate Y based on beat timing
+        // Simple QRS complex simulation
+        let y = centerY;
+
+        // Trigger beat
+        if (framesSinceBeat >= intervalFrames) {
+          framesSinceBeat = 0;
+        }
+
+        // Draw the complex at the start of the beat
+        const t = framesSinceBeat; // frames into the beat
+
+        // P wave (small bump)
+        if (t > 5 && t < 15) y -= 5 * Math.sin((t - 5) / 10 * Math.PI);
+        // QRS complex (sharp down-up-down)
+        else if (t >= 20 && t < 24) y += 10; // Q
+        else if (t >= 24 && t < 30) y -= 40; // R (peak)
+        else if (t >= 30 && t < 34) y += 15; // S
+        // T wave (medium bump)
+        else if (t > 40 && t < 60) y -= 8 * Math.sin((t - 40) / 20 * Math.PI);
+
+
+        // Draw segment
+        ecgCtx.beginPath();
+        ecgCtx.moveTo(x, lastY);
+        ecgCtx.lineTo(x + speed, y);
+        ecgCtx.stroke();
+
+        lastY = y;
+        x += speed;
+
+        // Wrap around
+        if (x > width) {
+          x = 0;
+          ecgCtx.moveTo(0, centerY);
+          // Clear whole canvas for clean loop or use fade?
+          // Let's clear rect ahead to simulate "scope"
+          ecgCtx.fillStyle = '#fff';
+          ecgCtx.fillRect(0, 0, width, height);
+          ecgCtx.beginPath(); // reset path
+        } else {
+          // Clear a small bar ahead of the drawing point
+          ecgCtx.fillStyle = '#fff';
+          ecgCtx.fillRect(x + speed, 0, 10, height);
+        }
+
+        ecgFrame = requestAnimationFrame(loop);
+      }
+
+      loop();
+    }
+
+    function stopECGAnimation() {
+      if (ecgFrame) cancelAnimationFrame(ecgFrame);
+    }
+
     // 결과 생성
     function generateResult(measuredBpm) {
       console.log("measuredBpm from PPG:", measuredBpm);
@@ -806,8 +907,11 @@
       // Reset Carousel
       showSlide(1);
 
-      // 1. BPM Display (Page 3)
+      // 1. BPM Display (Page 1)
       animateValue(bpmEl, 0, bpm, 1500);
+
+      // Start ECG Animation
+      startECGAnimation(bpm);
 
       // 2. Label & Insight
       let label;
@@ -987,6 +1091,7 @@
       camWrap.style.animationDuration = "1.1s";
       stopPPG();
       stopCamera();
+      stopECGAnimation(); // Stop ECG
       signalStatusEl.textContent = "";
       // 초기 화면 설정
       show(intro);
