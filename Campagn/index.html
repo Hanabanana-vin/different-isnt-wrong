@@ -795,7 +795,9 @@
           slide.classList.add('active');
 
           // Trigger Animations based on Slide
-          if (index === 5) { // Neighborhood
+          if (index === 4) { // Gauge
+            animateGauge();
+          } else if (index === 5) { // Neighborhood
             animateNeighborhood();
           } else if (index === 6) { // Histogram
             animateHistogram();
@@ -807,6 +809,7 @@
           slide.classList.remove('active');
 
           // Reset animations if needed (optional, for replayability)
+          if (i === 4) resetGauge();
           if (i === 6) resetHistogram();
         }
       }
@@ -877,6 +880,19 @@
           bar.style.height = bar.dataset.height;
         }, i * 100); // Staggered effect
       });
+    }
+
+    function animateGauge() {
+      // Small delay to ensure transition works after display block
+      setTimeout(() => {
+        if (gaugeFill.dataset.target) gaugeFill.style.width = gaugeFill.dataset.target;
+        if (gaugeMarker.dataset.target) gaugeMarker.style.left = gaugeMarker.dataset.target;
+      }, 100);
+    }
+
+    function resetGauge() {
+      gaugeFill.style.width = '0%';
+      gaugeMarker.style.left = '0%';
     }
 
     function resetHistogram() {
@@ -1068,11 +1084,13 @@
       let pct = ((bpm - min) / (max - min)) * 100;
       pct = Math.max(0, Math.min(100, pct));
 
-      // Animate width and left
-      // We can use CSS transition if set, or just set it directly.
-      // Let's set it directly, assuming CSS transition handles the smooth move.
-      gaugeFill.style.width = `${pct}%`;
-      gaugeMarker.style.left = `${pct}%`;
+      // Store target for animation
+      gaugeFill.dataset.target = `${pct}%`;
+      gaugeMarker.dataset.target = `${pct}%`;
+
+      // Reset to 0 initially
+      gaugeFill.style.width = '0%';
+      gaugeMarker.style.left = '0%';
 
       // Update text
       if (pct < 33) gaugeText.textContent = "Slower than Average";
