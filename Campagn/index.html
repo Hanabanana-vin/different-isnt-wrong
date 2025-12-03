@@ -216,7 +216,7 @@
         <!-- PAGE 2: The World View (Formerly Slide 1) -->
         <div class="result-slide" id="slide-2">
           <div class="slide-content center-text">
-            <h2 class="fade-in-text">There are more than<br><span class="bold"> billion people</span><br>living
+            <h2 class="fade-in-text">There are more than<br><span class="bold">8.2 billion people</span><br>living
               completely different lives.
             </h2>
             <img src="world_map.jpg" class="fade-in-image delay-2" alt="World Map">
@@ -229,8 +229,16 @@
         <!-- PAGE 3: Zoom Into the Visitor (Formerly Slide 2) -->
         <div class="result-slide" id="slide-3">
           <div class="slide-content center-text">
-            <h2 class="fade-in-text">different is not wrong.</h2>
+            <h2 class="fade-in-text">Different is Not Wrong.</h2>
             <p>Just as everyone lives<br>in different environments<br>and rhythms,</p>
+
+            <div class="cluster-map-wrap" style="margin-top: 24px;">
+              <img src="world_map.jpg" class="map-bg" alt="World Map">
+              <canvas id="cluster-canvas" width="300" height="200"></canvas>
+            </div>
+            <div class="distribution-desc">
+              Each dot is one visitor’s rhythm today.<br>One glowing point is yours.
+            </div>
           </div>
           <div class="tap-hint">Tap to turn the page →</div>
         </div>
@@ -306,25 +314,8 @@
           <div class="tap-hint">Tap to turn the page →</div>
         </div>
 
-        <!-- PAGE 7: Chunk C (Cluster Map) -->
+        <!-- PAGE 7: Chunk D (Heart Twin) -->
         <div class="result-slide" id="slide-7">
-          <div class="slide-content center-text">
-            <div class="distribution-card">
-              <div class="distribution-title">You in the moving crowd</div>
-              <div class="cluster-map-wrap">
-                <img src="world_map.jpg" class="map-bg" alt="World Map">
-                <canvas id="cluster-canvas" width="300" height="200"></canvas>
-              </div>
-              <div class="distribution-desc">
-                Each dot is one visitor’s rhythm today. One glowing point is yours.
-              </div>
-            </div>
-          </div>
-          <div class="tap-hint">Tap to turn the page →</div>
-        </div>
-
-        <!-- PAGE 8: Chunk D (Heart Twin) -->
-        <div class="result-slide" id="slide-8">
           <div class="slide-content center-text">
             <div class="heart-twin-card">
               <div class="distribution-title">Your Heart Twin</div>
@@ -340,8 +331,8 @@
           <div class="tap-hint">Tap to see the message →</div>
         </div>
 
-        <!-- PAGE 9: Ending -->
-        <div class="result-slide" id="slide-9">
+        <!-- PAGE 8: Ending -->
+        <div class="result-slide" id="slide-8">
           <div class="slide-content center-text">
             <div class="ending-message">
               <p>Different opinions.<br>Different fears.<br>Different sides.</p>
@@ -794,7 +785,7 @@
 
     // Carousel Logic
     let currentSlide = 1;
-    const totalSlides = 9;
+    const totalSlides = 8;
 
     function showSlide(index) {
       for (let i = 1; i <= totalSlides; i++) {
@@ -803,14 +794,14 @@
           slide.classList.add('active');
 
           // Trigger Animations based on Slide
-          if (index === 4) { // Gauge
+          if (index === 3) { // Cluster Map (Moved to Slide 3)
+            animateClusterMap();
+          } else if (index === 4) { // Gauge
             animateGauge();
           } else if (index === 5) { // Neighborhood
             animateNeighborhood();
           } else if (index === 6) { // Histogram
             animateHistogram();
-          } else if (index === 7) { // Cluster Map
-            animateClusterMap();
           }
 
         } else {
