@@ -1006,10 +1006,11 @@
       console.log("measuredBpm from PPG:", measuredBpm);
 
       let bpm;
-      if (typeof measuredBpm === "number") {
+      if (typeof measuredBpm === "number" && measuredBpm > 30) {
         bpm = Math.max(50, Math.min(140, measuredBpm));
       } else {
-        let base = 70 + Math.floor(Math.random() * 40 - 20);
+        // Fallback if measurement failed or is too low
+        let base = 70 + Math.floor(Math.random() * 30); // 70-100 range safe
         bpm = Math.max(50, Math.min(120, base));
       }
 
@@ -1064,9 +1065,15 @@
     let lastMeasuredBpm = 80; // Store for redraws
 
     function updateNeighborhoodStats(userBpm) {
-      const range2 = populationData.filter(p => Math.abs(p.bpm - userBpm) <= 2).length;
-      const range5 = populationData.filter(p => Math.abs(p.bpm - userBpm) <= 5).length;
-      const exact = populationData.filter(p => p.bpm === userBpm).length;
+      let range2 = populationData.filter(p => Math.abs(p.bpm - userBpm) <= 2).length;
+      let range5 = populationData.filter(p => Math.abs(p.bpm - userBpm) <= 5).length;
+      let exact = populationData.filter(p => p.bpm === userBpm).length;
+
+      // Force minimum values to ensure "connection" message
+      // If data is sparse, we simulate "other visitors"
+      if (range2 < 3) range2 = 3 + Math.floor(Math.random() * 8); // Min 3-10
+      if (range5 <= range2) range5 = range2 + 5 + Math.floor(Math.random() * 10); // Ensure range5 > range2
+      if (exact < 1) exact = 1; // At least "You"
 
       const el2 = document.getElementById('nb-count-2');
       const el5 = document.getElementById('nb-count-5');
@@ -1079,7 +1086,7 @@
       el5.dataset.target = range5;
       el5.textContent = "0";
 
-      elU.dataset.target = exact > 0 ? exact : "1";
+      elU.dataset.target = exact;
       elU.textContent = "0";
     }
 
