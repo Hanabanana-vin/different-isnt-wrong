@@ -139,10 +139,7 @@
     <div class="card" id="screen-pre-measure" style="display:none;">
 
       <!-- Top Interaction pointing to camera -->
-      <div class="instruction-graphic">
-        <div class="finger-cue"></div>
-        <div class="arrow-cue">↑</div>
-      </div>
+      <!-- Top Interaction pointing to camera (Moved to global) -->
 
       <div class="step-label">Preparation</div>
       <h2 class="center">Ready to measure?</h2>
@@ -327,6 +324,12 @@
 
   </div>
 
+  <!-- Global Instruction Graphic (Fixed to Top) -->
+  <div class="instruction-graphic" id="instruction-graphic" style="display:none;">
+    <div class="finger-cue"></div>
+    <div class="arrow-cue">↑</div>
+  </div>
+
   <script>
     // 화면 요소들
     const intro = document.getElementById('screen-intro');
@@ -338,6 +341,7 @@
     const pmScreen = document.getElementById('screen-pre-measure');
     const mScreen = document.getElementById('screen-measure');
     const rScreen = document.getElementById('screen-result');
+    const instructionGraphic = document.getElementById('instruction-graphic');
 
     const btnStart = document.getElementById('btn-start');
     const btnStartMeasure = document.getElementById('btn-start-measure');
@@ -414,16 +418,20 @@
     };
 
     function show(screen) {
-      intro.style.display = 'none';
-      q1.style.display = 'none';
-      q2.style.display = 'none';
-      q3.style.display = 'none';
-      q4.style.display = 'none';
-      q5.style.display = 'none';
-      pmScreen.style.display = 'none';
-      mScreen.style.display = 'none';
-      rScreen.style.display = 'none';
+      // Hide all screens
+      [intro, q1, q2, q3, q4, q5, pmScreen, mScreen, rScreen].forEach(s => s.style.display = 'none');
+      // Show target
       screen.style.display = 'block';
+
+      // Toggle global instruction graphic
+      if (screen === pmScreen) {
+        instructionGraphic.style.display = 'block';
+      } else {
+        instructionGraphic.style.display = 'none';
+      }
+
+      // Scroll to top
+      window.scrollTo(0, 0);
     }
 
     btnStart.onclick = () => show(q1);
