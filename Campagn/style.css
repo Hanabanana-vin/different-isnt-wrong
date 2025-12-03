@@ -350,6 +350,10 @@ button#btn-restart:hover {
   box-shadow: 0 8px 20px -6px rgba(67, 97, 238, 0.4);
 }
 
+.orange_txt {
+  color: var(--secondary);
+}
+
 /* Camera & Measurement */
 .center {
   text-align: center;
