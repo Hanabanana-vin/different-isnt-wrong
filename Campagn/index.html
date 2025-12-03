@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="step-label">Question 1 of 5</div>
-      <h2>What is your age group?</h2>
+      <h2>What is your <span class="orange_txt">age group?</span></h2>
       <p>Please answer honestly, just as you normally think.</p>
       <div class="options-block">
         <div class="opt" data-key="identity">10s</div>
@@ -318,34 +318,37 @@
           <div class="tap-hint">Tap to turn the page →</div>
         </div>
 
-        <!-- PAGE 8: Chunk D (Heart Twin & Closing) -->
+        <!-- PAGE 8: Chunk D (Heart Twin) -->
         <div class="result-slide" id="slide-8">
-          <div class="slide-content scrollable">
+          <div class="slide-content center-text">
             <div class="heart-twin-card">
-              <div class="twin-icon">♥</div>
-              <div class="twin-info">
-                <div class="twin-title">Your Heart Twin</div>
-                <div class="twin-desc" id="twin-desc">Visitor #042 (81 bpm)</div>
+              <div class="distribution-title">Your Heart Twin</div>
+              <div class="twin-icon">❤️</div>
+              <div class="distribution-desc" id="twin-desc">
+                Finding match...
+              </div>
+              <div class="distribution-desc" style="margin-top: 16px;">
+                Somewhere in this crowd,<br>someone’s heart beats just like yours.
               </div>
             </div>
-            <div class="distribution-desc" style="text-align: center; margin-top: 8px; margin-bottom: 24px;">
-              Somewhere in this room, one person’s rhythm came closest to yours.
-            </div>
-
-            <!-- Closing -->
-            <div class="closing-text">
-              <p>Different opinions. Different fears. Different sides.<br>
-                Yet every heart here moved inside the same human range.<br><br>
-                <strong>Different is not wrong.</strong>
-              </p>
-            </div>
-
-            <div class="btn-row">
-              <button id="btn-restart">Try again</button>
-            </div>
           </div>
+          <div class="tap-hint">Tap to see the message →</div>
         </div>
 
+        <!-- PAGE 9: Ending -->
+        <div class="result-slide" id="slide-9">
+          <div class="slide-content center-text">
+            <div class="ending-message">
+              <p>Different opinions.<br>Different fears.<br>Different sides.</p>
+              <p style="margin-top: 24px;">Yet every heart here moved inside the same human range.</p>
+              <h2 style="margin-top: 40px; font-size: 28px; color: var(--primary);">Different is not wrong.</h2>
+            </div>
+
+            <button class="btn-primary" onclick="location.reload()" style="margin-top: 40px;">
+              Try Again
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -786,7 +789,7 @@
 
     // Carousel Logic
     let currentSlide = 1;
-    const totalSlides = 8;
+    const totalSlides = 9;
 
     function showSlide(index) {
       for (let i = 1; i <= totalSlides; i++) {
