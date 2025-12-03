@@ -663,13 +663,20 @@ button#btn-restart:hover {
 
 /* Utilities */
 .tiny {
-  font-size: 14px;
+  font-size: 10px;
   color: var(--text-sub);
   margin-top: 12px;
   max-width: 260px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.3;
+}
+
+.addtnl_tiny {
+  width: 100%;
+  font-size: 6px;
+  color: var(--text-sub);
+  line-height: 1.4;
 }
 
 /* --- NEW RESULT PAGE STYLES --- */
@@ -736,7 +743,7 @@ button#btn-restart:hover {
 .cluster-map-wrap {
   width: 100%;
   /* height: 200px; Remove fixed height to let image define it? Or keep it? Let's keep it for consistency but use object-fit */
-  height: 200px;
+  height: 234px;
   background: #fff;
   /* Changed to white */
   border-radius: 16px;
@@ -744,7 +751,7 @@ button#btn-restart:hover {
   position: relative;
   overflow: hidden;
   /* box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); Removed dark shadow */
-  border: 1px solid #E5E7EB;
+  /*border: 1px solid #E5E7EB;*/
   /* Light border instead */
 }
 
