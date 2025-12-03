@@ -185,7 +185,7 @@
         <!-- 실시간 심박 그래프 -->
         <canvas id="graph" width="320" height="80"></canvas>
         <p class="tiny" id="signal-status"></p>
-        <p class="tiny">
+        <p class="addtnl_tiny">
           This heartbeat is estimated from tiny light changes on your fingertip.
           It is not a medical measurement, but a way to visualize your rhythm.
         </p>
@@ -298,24 +298,8 @@
           <div class="tap-hint">Tap to turn the page →</div>
         </div>
 
-        <!-- PAGE 6: Chunk B (Histogram) -->
+        <!-- PAGE 6: Chunk D (Heart Twin) -->
         <div class="result-slide" id="slide-6">
-          <div class="slide-content center-text">
-            <div class="distribution-card">
-              <div class="distribution-title">Where today’s visitors gathered</div>
-              <div class="histogram-wrap" id="histogram-wrap">
-                <!-- Bars injected by JS -->
-              </div>
-              <div class="distribution-insight" id="hist-insight">
-                Most hearts today gathered around 70–90 bpm — yours is one of them.
-              </div>
-            </div>
-          </div>
-          <div class="tap-hint">Tap to turn the page →</div>
-        </div>
-
-        <!-- PAGE 7: Chunk D (Heart Twin) -->
-        <div class="result-slide" id="slide-7">
           <div class="slide-content center-text">
             <div class="heart-twin-card">
               <div class="distribution-title">Your Heart Twin</div>
@@ -331,8 +315,8 @@
           <div class="tap-hint">Tap to see the message →</div>
         </div>
 
-        <!-- PAGE 8: Ending -->
-        <div class="result-slide" id="slide-8">
+        <!-- PAGE 7: Ending -->
+        <div class="result-slide" id="slide-7">
           <div class="slide-content center-text">
             <div class="ending-message">
               <p>Different opinions.<br>Different fears.<br>Different sides.</p>
@@ -785,7 +769,7 @@
 
     // Carousel Logic
     let currentSlide = 1;
-    const totalSlides = 8;
+    const totalSlides = 7;
 
     function showSlide(index) {
       for (let i = 1; i <= totalSlides; i++) {
@@ -800,8 +784,6 @@
             animateGauge();
           } else if (index === 5) { // Neighborhood
             animateNeighborhood();
-          } else if (index === 6) { // Histogram
-            animateHistogram();
           }
 
         } else {
@@ -809,7 +791,6 @@
 
           // Reset animations if needed (optional, for replayability)
           if (i === 4) resetGauge();
-          if (i === 6) resetHistogram();
         }
       }
       currentSlide = index;
