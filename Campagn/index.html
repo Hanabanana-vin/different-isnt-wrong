@@ -258,10 +258,9 @@
         </div>
 
         <!-- PAGE 5: Crowd Visualization -->
+        <!-- PAGE 5: Chunk A (Neighborhood) -->
         <div class="result-slide" id="slide-5">
-          <div class="slide-content scrollable">
-
-            <!-- Chunk A: Neighborhood (People who moved like you today) -->
+          <div class="slide-content center-text">
             <div class="distribution-card" style="margin-top: 0;">
               <div class="distribution-title">People who moved like you today</div>
               <div class="neighborhood-wrap">
@@ -282,8 +281,13 @@
                 Quite a few hearts today moved almost like yours.
               </div>
             </div>
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
 
-            <!-- Chunk B: Histogram (Where today’s visitors gathered) -->
+        <!-- PAGE 6: Chunk B (Histogram) -->
+        <div class="result-slide" id="slide-6">
+          <div class="slide-content center-text">
             <div class="distribution-card">
               <div class="distribution-title">Where today’s visitors gathered</div>
               <div class="histogram-wrap" id="histogram-wrap">
@@ -293,8 +297,13 @@
                 Most hearts today gathered around 70–90 bpm — yours is one of them.
               </div>
             </div>
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
 
-            <!-- Chunk C: Cluster Map (You in the moving crowd) -->
+        <!-- PAGE 7: Chunk C (Cluster Map) -->
+        <div class="result-slide" id="slide-7">
+          <div class="slide-content center-text">
             <div class="distribution-card">
               <div class="distribution-title">You in the moving crowd</div>
               <div class="cluster-map-wrap">
@@ -304,8 +313,13 @@
                 Each dot is one visitor’s rhythm today. One glowing point is yours.
               </div>
             </div>
+          </div>
+          <div class="tap-hint">Tap to turn the page →</div>
+        </div>
 
-            <!-- Chunk D: Heart Twin & Closing -->
+        <!-- PAGE 8: Chunk D (Heart Twin & Closing) -->
+        <div class="result-slide" id="slide-8">
+          <div class="slide-content scrollable">
             <div class="heart-twin-card">
               <div class="twin-icon">♥</div>
               <div class="twin-info">
@@ -328,7 +342,6 @@
             <div class="btn-row">
               <button id="btn-restart">Try again</button>
             </div>
-
           </div>
         </div>
 
@@ -772,7 +785,7 @@
 
     // Carousel Logic
     let currentSlide = 1;
-    const totalSlides = 5;
+    const totalSlides = 8;
 
     function showSlide(index) {
       for (let i = 1; i <= totalSlides; i++) {
