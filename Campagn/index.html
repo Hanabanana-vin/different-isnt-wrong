@@ -324,7 +324,7 @@
                 Different is not wrong.</h2>
             </div>
 
-            <button class="btn-primary ending-line" onclick="location.reload()" style="margin-top: 40px; opacity: 0;">
+            <button class="btn-primary ending-line" onclick="resetApp()" style="margin-top: 40px; opacity: 0;">
               Try Again
             </button>
           </div>
@@ -512,10 +512,28 @@
     async function startCamera() {
       scanPercentEl.textContent = "Requesting camera permission…";
       signalStatusEl.textContent = "";
-      scanProgress = 0;
+
+      if (camStream && camStream.active) {
+        console.log("Camera already active");
+        // If camera is already active, just ensure video is playing and PPG is running
+        video.play();
+        ppgMode = true;
+        scanProgress = 0;
+        startPPG(); // Re-start PPG if it was stopped
+        startScanAnimation(); // Re-start scan animation
+        return;
+      }
+
       try {
-        camStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        camStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'environment',
+            width: { ideal: 320 },
+            height: { ideal: 240 }
+          }
+        });
         video.srcObject = camStream;
+        video.play();
         ppgMode = true;
         startPPG();
         startScanAnimation();
@@ -1386,6 +1404,53 @@
       cancelAnimationFrame(endingAnimId);
       loop();
     }
+    function resetApp() {
+      // 1. Reset Variables
+      answers = {};
+      ppgSignal = [];
+      timestamps = [];
+      userBpm = 0;
+      currentSlide = 1;
+
+      // 2. Reset UI Screens
+      show(intro);
+      rScreen.style.display = 'none';
+      document.getElementById('screen-measure').style.display = 'none';
+      document.getElementById('screen-pre-measure').style.display = 'none';
+
+      // Hide all questions
+      document.querySelectorAll('.card').forEach(el => {
+        if (el.id !== 'screen-intro') el.style.display = 'none';
+      });
+
+      // 3. Reset Visuals
+      // Clear Graphs
+      const gCtx = graphCanvas.getContext('2d');
+      gCtx.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
+
+      // Reset Progress Bars
+      document.querySelectorAll('.fill').forEach(el => el.style.width = '0%');
+
+      // Reset Result Slides
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById(`slide-${i}`);
+        slide.classList.remove('active');
+        if (i === 1) slide.classList.add('active');
+      }
+
+      // Reset Animations
+      cancelAnimationFrame(endingAnimId);
+      const endingCanvas = document.getElementById('ending-canvas');
+      if (endingCanvas) {
+        const ctx = endingCanvas.getContext('2d');
+        ctx.clearRect(0, 0, endingCanvas.width, endingCanvas.height);
+      }
+
+      // Reset Text Opacity in Ending
+      document.querySelectorAll('.ending-line').forEach(l => l.style.opacity = 0);
+    }
+
+    // Initialize
     show(intro);
     // generateResult(75); // Force result screen
     // show(rScreen);
