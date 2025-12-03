@@ -317,7 +317,9 @@
           <canvas id="ending-canvas"></canvas>
           <div class="slide-content center-text" style="position: relative; z-index: 1;">
             <div class="ending-message">
-              <p class="ending-line" style="opacity: 0;">Different opinions.<br>Different fears.<br>Different sides.</p>
+              <p class="ending-line" style="opacity: 0;">Different opinions.</p>
+              <p class="ending-line" style="opacity: 0;">Different fears.</p>
+              <p class="ending-line" style="opacity: 0;">Different sides.</p>
               <p class="ending-line" style="margin-top: 24px; opacity: 0;">Yet every heart here moved inside the same
                 human range.</p>
               <h2 class="ending-line" style="margin-top: 40px; font-size: 28px; color: var(--primary); opacity: 0;">
@@ -1364,12 +1366,14 @@
         else if (elapsed < 8000) phase = 'pulse'; // Pulse for 5s
         else phase = 'disperse';
 
-        // Text Fade-in Logic (Faster)
+        // Text Fade-in Logic (Faster & Sequential)
         if (phase === 'pulse') {
-          if (elapsed > 3200) lines[0].style.opacity = 1; // Line 1
-          if (elapsed > 4200) lines[1].style.opacity = 1; // Line 2
-          if (elapsed > 5200) lines[2].style.opacity = 1; // Line 3
-          if (elapsed > 6200) lines[3].style.opacity = 1; // Button
+          if (elapsed > 3200) lines[0].style.opacity = 1; // Different opinions.
+          if (elapsed > 3800) lines[1].style.opacity = 1; // Different fears.
+          if (elapsed > 4400) lines[2].style.opacity = 1; // Different sides.
+          if (elapsed > 5500) lines[3].style.opacity = 1; // Yet every heart...
+          if (elapsed > 6500) lines[4].style.opacity = 1; // Different is not wrong.
+          if (elapsed > 7500) lines[5].style.opacity = 1; // Try Again Button
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
