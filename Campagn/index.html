@@ -298,36 +298,60 @@
         <!-- PAGE 6: Chunk D (Heart Twin) -->
         <div class="result-slide" id="slide-6">
           <div class="slide-content center-text">
-            <div class="heart-twin-card">
-              <div class="distribution-title">Your Heart Twin</div>
-              <div class="twin-icon">❤️</div>
-              <div class="distribution-desc" id="twin-desc">
-                Finding match...
+            <div class="heart-twin-card-container" id="twin-card-container">
+              <!-- Front of card (before reveal) -->
+              <div class="heart-twin-card twin-front">
+                <div class="distribution-title">Your Heart Twin</div>
+                <div class="twin-icon-mystery">?</div>
+                <div class="distribution-desc">
+                  Tap to reveal your heart twin...
+                </div>
+                <div class="shimmer-effect"></div>
               </div>
-              <div class="distribution-desc" style="margin-top: 16px;">
-                Somewhere in this crowd,<br>someone’s heart beats just like yours.
+              <!-- Back of card (after reveal) - Profile Card -->
+              <div class="heart-twin-card twin-back">
+                <div class="twin-profile-badge">MATCHED</div>
+                <div class="twin-country-flag" id="twin-flag">🌍</div>
+                <div class="twin-profile-name" id="twin-name">Heart Twin</div>
+                <div class="twin-profile-location" id="twin-location">Somewhere on Earth</div>
+                <div class="twin-profile-divider"></div>
+                <div class="twin-profile-bpm">
+                  <span class="bpm-number" id="twin-bpm">--</span>
+                  <span class="bpm-label">BPM</span>
+                </div>
+                <div class="twin-profile-note">
+                  Your hearts beat in sync ❤️
+                </div>
               </div>
             </div>
           </div>
-          <div class="tap-hint">Tap to see the message →</div>
+          <div class="tap-hint" id="twin-hint">Tap the card to reveal →</div>
         </div>
 
-        <!-- PAGE 7: Ending -->
-        <div class="result-slide" id="slide-7">
-          <canvas id="ending-canvas"></canvas>
-          <div class="slide-content center-text" style="position: relative; z-index: 1;">
-            <div class="ending-message">
-              <p class="ending-line" style="opacity: 0;">Different opinions.</p>
-              <p class="ending-line" style="opacity: 0;">Different fears.</p>
-              <p class="ending-line" style="opacity: 0;">Different sides.</p>
-              <p class="ending-line" style="margin-top: 24px; opacity: 0;">Yet every heart here moved inside the same
+        <!-- PAGE 7: Ending - Dark Cinematic -->
+        <div class="result-slide ending-dark" id="slide-7">
+          <div class="ending-overlay"></div>
+          <div class="slide-content center-text ending-content" style="position: relative; z-index: 2;">
+            <div class="ending-message-cinematic">
+              <p class="ending-line-cinematic" data-index="0">Different opinions.</p>
+              <p class="ending-line-cinematic" data-index="1">Different fears.</p>
+              <p class="ending-line-cinematic" data-index="2">Different sides.</p>
+              <p class="ending-line-cinematic bridge-text" data-index="3">Yet every heart here moved inside the same
                 human range.</p>
-              <h2 class="ending-line" style="margin-top: 40px; font-size: 28px; color: var(--primary); opacity: 0;">
-                Different is not wrong.</h2>
+
+              <!-- Heart Hug Line Drawing -->
+              <div class="heart-drawing-wrap ending-line-cinematic" data-index="4">
+                <svg class="heart-hug-svg" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path class="draw-line"
+                    d="M44.5,386.5 C100,370 180,390 250,388 M265,388 C290,395 345,390 390,360 C450,320 490,300 550,335 C580,360 595,365 580,325 C580,300 600,280 655,240 M270,383 C230,320 200,290 155,270 C130,280 165,310 185,320 M155,275 C175,265 210,270 240,275 M160,290 C190,285 225,295 255,315 M165,310 C180,310 205,325 225,345 M175,330 C200,335 220,350 240,370 M190,350 C205,355 220,370 235,390 M250,385 C220,350 200,310 190,290 C260,275 335,270 375,265 C370,230 340,150 250,145 C180,140 130,195 135,235 C220,245 280,205 305,195 M285,210 C310,200 340,200 365,205 M285,225 C310,220 345,225 375,240 M280,240 C305,240 340,250 365,270 M275,260 C295,265 325,280 350,305"
+                    stroke="white" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+
+              <h2 class="ending-line-cinematic final-statement" data-index="4">Different is not wrong.</h2>
             </div>
 
-            <button id="btn-start" class="btn-primary ending-line" onclick="resetApp()"
-              style="margin-top: 40px; opacity: 0;">
+            <button id="btn-restart" class="btn-restart-dark ending-line-cinematic" data-index="5" onclick="resetApp()">
               Try Again
             </button>
           </div>
@@ -805,6 +829,8 @@
             animateGauge();
           } else if (index === 5) { // Neighborhood
             animateNeighborhood();
+          } else if (index === 6) { // Heart Twin
+            resetHeartTwinCard();
           } else if (index === 7) { // Ending
             animateEnding();
           }
@@ -814,6 +840,7 @@
 
           // Reset animations if needed (optional, for replayability)
           if (i === 4) resetGauge();
+          if (i === 6) resetHeartTwinCard();
         }
       }
       currentSlide = index;
@@ -1064,20 +1091,93 @@
       findHeartTwin(bpm);
     }
 
-    function findHeartTwin(userBpm) {
-      // Find closest match
-      let closest = populationData[0];
-      let minDiff = Infinity;
+    // Heart Twin data pool - diverse fake visitors from around the world
+    const heartTwinPool = [
+      { name: "A Traveler", location: "Tokyo, Japan", country: "🇯🇵" },
+      { name: "A Dreamer", location: "New York, USA", country: "🇺🇸" },
+      { name: "A Student", location: "Berlin, Germany", country: "🇩🇪" },
+      { name: "A Visitor", location: "Paris, France", country: "🇫🇷" },
+      { name: "A Wanderer", location: "Seoul, Korea", country: "🇰🇷" },
+      { name: "A Thinker", location: "London, UK", country: "🇬🇧" },
+      { name: "A Stranger", location: "Sydney, Australia", country: "🇦🇺" },
+      { name: "A Soul", location: "São Paulo, Brazil", country: "🇧🇷" },
+      { name: "A Heart", location: "Barcelona, Spain", country: "🇪🇸" },
+      { name: "A Spirit", location: "Amsterdam, Netherlands", country: "🇳🇱" },
+      { name: "A Person", location: "Toronto, Canada", country: "🇨🇦" },
+      { name: "A Mind", location: "Singapore", country: "🇸🇬" },
+    ];
 
-      populationData.forEach(p => {
-        const diff = Math.abs(p.bpm - userBpm);
-        if (diff < minDiff) {
-          minDiff = diff;
-          closest = p;
+    let currentHeartTwin = null;
+
+    function findHeartTwin(userBpm) {
+      console.log("findHeartTwin called with userBpm:", userBpm);
+
+      // Pick a random twin from the pool
+      const randomIndex = Math.floor(Math.random() * heartTwinPool.length);
+      const twin = heartTwinPool[randomIndex];
+
+      // Generate a BPM close to the user's (within ±3 bpm for "exact match" feel)
+      // Ensure userBpm is a valid number, fallback to 75 if not
+      const safeBpm = (typeof userBpm === 'number' && !isNaN(userBpm)) ? userBpm : 75;
+      const twinBpm = safeBpm + Math.floor(Math.random() * 7) - 3;
+
+      currentHeartTwin = {
+        ...twin,
+        bpm: twinBpm
+      };
+
+      console.log("Heart Twin matched:", twin.name, twin.location, twinBpm, "bpm");
+
+      // Update the profile card elements
+      const flagEl = document.getElementById('twin-flag');
+      const nameEl = document.getElementById('twin-name');
+      const locationEl = document.getElementById('twin-location');
+      const bpmEl = document.getElementById('twin-bpm');
+
+      if (flagEl) flagEl.textContent = twin.country;
+      if (nameEl) nameEl.textContent = twin.name;
+      if (locationEl) locationEl.textContent = twin.location;
+      if (bpmEl) bpmEl.textContent = twinBpm;
+    }
+
+    // Heart Twin Card Reveal
+    let twinCardRevealed = false;
+    const twinCardContainer = document.getElementById('twin-card-container');
+    const twinHint = document.getElementById('twin-hint');
+
+    function resetHeartTwinCard() {
+      twinCardRevealed = false;
+      if (twinCardContainer) {
+        twinCardContainer.classList.remove('revealed');
+      }
+      if (twinHint) {
+        twinHint.textContent = 'Tap the card to reveal →';
+      }
+    }
+
+    function revealHeartTwinCard() {
+      if (twinCardRevealed) return;
+      twinCardRevealed = true;
+
+      if (twinCardContainer) {
+        twinCardContainer.classList.add('revealed');
+      }
+      if (twinHint) {
+        twinHint.textContent = 'Tap to see the message →';
+      }
+    }
+
+    // Add click event for Heart Twin card reveal
+    if (twinCardContainer) {
+      twinCardContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!twinCardRevealed) {
+          revealHeartTwinCard();
+        } else {
+          // If already revealed, go to next slide
+          nextSlide();
         }
       });
-
-      twinDesc.textContent = `Visitor #${closest.id.toString().padStart(3, '0')} (${closest.bpm} bpm)`;
     }
 
     function updateGauge(bpm) {
@@ -1136,6 +1236,9 @@
     }
 
     function drawHistogram(userBpm) {
+      // Skip if histogram element doesn't exist (slide was removed)
+      if (!histWrap) return;
+
       histWrap.innerHTML = "";
       const bins = [50, 60, 70, 80, 90, 100, 110, 120];
       const counts = new Array(bins.length).fill(0);
@@ -1339,75 +1442,59 @@
     }
 
     function animateEnding() {
-      const canvas = document.getElementById('ending-canvas');
-      const ctx = canvas.getContext('2d');
-      const container = document.getElementById('slide-7'); // Ensure correct container
-      canvas.width = container.offsetWidth;
-      canvas.height = container.offsetHeight;
+      // Get all text lines for the cinematic ending
+      const lines = document.querySelectorAll('.ending-line-cinematic');
 
-      const particles = [];
-      for (let i = 0; i < 600; i++) {
-        particles.push(new EndingParticle(canvas.width, canvas.height));
-      }
-
-      let startTime = Date.now();
-      let phase = 'float'; // float, gather, pulse, disperse
-
-      // Text Elements
-      const lines = document.querySelectorAll('.ending-line');
-
-      function loop() {
-        const now = Date.now();
-        const elapsed = now - startTime;
-
-        // Phase Logic (Faster Timings)
-        if (elapsed < 1000) phase = 'float';
-        else if (elapsed < 3000) phase = 'gather';
-        else if (elapsed < 8000) phase = 'pulse'; // Pulse for 5s
-        else phase = 'disperse';
-
-        // Text Fade-in Logic (Faster & Sequential)
-        if (phase === 'pulse') {
-          if (elapsed > 3200) lines[0].style.opacity = 1; // Different opinions.
-          if (elapsed > 3800) lines[1].style.opacity = 1; // Different fears.
-          if (elapsed > 4400) lines[2].style.opacity = 1; // Different sides.
-          if (elapsed > 5500) lines[3].style.opacity = 1; // Yet every heart...
-          if (elapsed > 6500) lines[4].style.opacity = 1; // Different is not wrong.
-          if (elapsed > 7500) lines[5].style.opacity = 1; // Try Again Button
-        }
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Pulse Circle (Background)
-        if (phase === 'pulse') {
-          const pulseScale = (Math.sin(now * 0.005) + 1) * 0.5; // Faster pulse
-          const radius = 100 + pulseScale * 50;
-          const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, radius * 2);
-          gradient.addColorStop(0, 'rgba(67, 97, 238, 0.2)'); // Brand Blue
-          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-          ctx.beginPath();
-          ctx.arc(canvas.width / 2, canvas.height / 2, radius * 2, 0, Math.PI * 2);
-          ctx.fillStyle = gradient;
-          ctx.fill();
-        }
-
-        particles.forEach(p => {
-          p.update(phase, now);
-          p.draw(ctx);
-        });
-
-        if (phase !== 'end') endingAnimId = requestAnimationFrame(loop);
-      }
-
-      // Reset text opacity
-      lines.forEach(l => {
-        l.style.opacity = 0;
-        l.style.transition = 'opacity 1.0s ease'; // Faster transition
+      // Reset all lines first
+      lines.forEach(line => {
+        line.classList.remove('visible');
+        line.classList.remove('fade-out');
       });
 
-      cancelAnimationFrame(endingAnimId);
-      loop();
+      // PHASE 1: Show first 4 sentences sequentially
+      const phase1Timings = [
+        800,    // "Different opinions."
+        2000,   // "Different fears."
+        3200,   // "Different sides."
+        4800,   // "Yet every heart..." 
+      ];
+
+      // Show first 4 lines
+      phase1Timings.forEach((timing, index) => {
+        setTimeout(() => {
+          if (lines[index]) {
+            lines[index].classList.add('visible');
+          }
+        }, timing);
+      });
+
+      // PHASE 2: Fade out first 4 sentences after they've all appeared
+      const fadeOutTime = 7000; // When to start fading out
+      setTimeout(() => {
+        // Fade out first 4 lines
+        for (let i = 0; i < 4; i++) {
+          if (lines[i]) {
+            lines[i].classList.remove('visible');
+            lines[i].classList.add('fade-out');
+          }
+        }
+      }, fadeOutTime);
+
+      // PHASE 3: Show final statement after fade out complete
+      const finalStatementTime = 8500; // After fade out transition
+      setTimeout(() => {
+        if (lines[4]) {
+          lines[4].classList.add('visible'); // "Different is not wrong."
+        }
+      }, finalStatementTime);
+
+      // PHASE 4: Show Try Again button
+      const buttonTime = 10500;
+      setTimeout(() => {
+        if (lines[5]) {
+          lines[5].classList.add('visible'); // Try Again button
+        }
+      }, buttonTime);
     }
     function resetApp() {
       // 1. Reset Variables
