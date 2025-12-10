@@ -1120,6 +1120,10 @@ button#btn-restart:hover {
 }
 
 .ending-message-cinematic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1127,6 +1131,24 @@ button#btn-restart:hover {
   gap: 16px;
   padding: 20px;
   text-align: center;
+  width: 90%;
+  max-width: 500px;
+}
+
+.ending-visual-cinematic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
 }
 
 .ending-line-cinematic {
@@ -1173,15 +1195,13 @@ button#btn-restart:hover {
 }
 
 .draw-line {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  stroke-dasharray: 10000;
+  stroke-dashoffset: 10000;
+  fill: none;
 }
 
 .heart-drawing-wrap.visible .draw-line {
-  opacity: 1;
-  animation: drawLine 2.5s ease-out forwards;
+  animation: drawLine 3s ease-out forwards;
 }
 
 .heart-drawing-wrap.visible .hand-left {
@@ -1230,7 +1250,7 @@ button#btn-restart:hover {
 
 /* Dark theme restart button */
 .btn-restart-dark {
-  margin-top: 60px;
+  margin-top: 40px;
   padding: 16px 40px;
   font-size: 16px;
   font-weight: 600;
